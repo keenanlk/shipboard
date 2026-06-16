@@ -1,0 +1,68 @@
+name: Bug report
+description: Something in ShipBoard isn't working right
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve ShipBoard! Please fill in the details below so we can reproduce it.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, including what you expected to happen instead.
+      placeholder: When I…, ShipBoard did… but I expected…
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ShipBoard
+        2. …
+        3. See the problem
+    validations:
+      required: true
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Which provider(s) are involved?
+      multiple: true
+      options:
+        - AWS CodePipeline
+        - GitHub Actions
+        - GitLab CI
+        - Vercel
+        - Netlify
+        - Not provider-specific / the app itself
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: ShipBoard version
+      description: Shown in Settings → About (e.g. 1.0.0).
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version
+      placeholder: "14.5"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or extra context (optional)
+      description: Drag in screenshots if they help. Do NOT paste tokens, access keys, or other credentials.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and didn't find a duplicate.
+          required: true
+        - label: This report contains no secrets (tokens, AWS keys, etc.).
+          required: true
