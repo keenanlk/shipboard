@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./og-image.png" alt="ShipBoard — every pipeline, one glance" width="100%" />
+<img src="https://shipboardapp.com/og-image.png" alt="ShipBoard — every pipeline, one glance" width="100%" />
 
 # ShipBoard
 
