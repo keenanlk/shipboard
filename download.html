@@ -68,7 +68,7 @@
     <h1>Your download is starting…</h1>
     <p>ShipBoard for macOS should begin downloading automatically.</p>
 
-    <p class="manual">Didn't start? <a id="dl" href="https://github.com/keenanlk/shipboard/releases/latest/download/ShipBoard.dmg">Download it manually</a>.</p>
+    <p class="manual">Didn't start? <a id="dl" href="https://github.com/keenanlk/shipboard/releases/latest">Download it manually</a>.</p>
 
     <div class="steps">
       <b>Next:</b> open the downloaded <b>.dmg</b> → drag <b>ShipBoard</b> to Applications → launch it.<br>
@@ -79,10 +79,25 @@
   </div>
 
   <script>
-    // Kick off the download shortly after the page paints so the message is seen first.
+    // Ask GitHub for the latest release's .dmg and download whatever it's named.
+    // Resilient to version-bumps and asset-name changes; falls back to the
+    // releases page (the manual link) if the API is unavailable.
     (function () {
-      var url = document.getElementById('dl').href;
-      setTimeout(function () { window.location.href = url; }, 700);
+      var manual = document.getElementById('dl'); // -> /releases/latest (always works)
+      fetch('https://api.github.com/repos/keenanlk/shipboard/releases/latest', {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          var dmg = (d.assets || []).filter(function (a) {
+            return /\.dmg$/i.test(a.name);
+          })[0];
+          if (dmg && dmg.browser_download_url) {
+            manual.href = dmg.browser_download_url; // upgrade fallback to the direct file
+            setTimeout(function () { window.location.href = dmg.browser_download_url; }, 600);
+          }
+        })
+        .catch(function () { /* leave the manual link pointing at the releases page */ });
     })();
   </script>
 </body>
