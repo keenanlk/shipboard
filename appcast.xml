@@ -3,6 +3,14 @@
   <channel>
     <title>ShipBoard</title>
     <item>
+      <title>Version 1.0.2</title>
+      <pubDate>Tue, 16 Jun 2026 06:01:54 +0000</pubDate>
+      <sparkle:version>20260616055535</sparkle:version>
+      <sparkle:shortVersionString>1.0.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/keenanlk/shipboard/releases/download/v1.0.2/ShipBoard-1.0.2.dmg" type="application/octet-stream" sparkle:edSignature="bwd1DA3aRcXe0CsOrSyFLMTXLs+YKk/br7XQh50Mer2I8i9uUX5e1rvgGbGoHBDAuS0W5pmaXpL5BcaM088rCA==" length="6590845"/>
+    </item>
+    <item>
       <title>Version 1.0.1</title>
       <pubDate>Tue, 16 Jun 2026 05:46:08 +0000</pubDate>
       <sparkle:version>20260616053947</sparkle:version>
