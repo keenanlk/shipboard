@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShipBoard — Privacy</title>
+<meta name="description" content="ShipBoard's privacy policy. The app collects nothing and runs entirely on your Mac." />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e13; --panel:#10161f; --line:rgba(255,255,255,.08);
+    --ink:#e9eef4; --ink-dim:#9aa6b4; --ink-faint:#5d6b7a; --go:#37d07e;
+    --display:'Bricolage Grotesque',sans-serif; --body:'Hanken Grotesk',sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(50rem 32rem at 80% -10%,rgba(55,208,126,.08),transparent 60%),var(--bg)}
+  a{color:var(--go);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px}
+  nav{border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink)}
+  .brand .ferry{color:var(--go)} .nav-in a{color:var(--ink-dim)} .nav-in .brand:hover{text-decoration:none}
+  .doc{padding-block:56px 80px}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--go)}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.03em;font-size:clamp(34px,5vw,50px);margin:12px 0 6px}
+  .updated{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint)}
+  .lead{color:var(--ink-dim);font-size:19px;margin:22px 0 8px}
+  h2{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.015em;margin:34px 0 8px}
+  p{color:var(--ink-dim);margin:8px 0}
+  ul{color:var(--ink-dim);margin:8px 0 8px 22px} li{margin:6px 0}
+  .ink{color:var(--ink);font-weight:600}
+  code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.05);padding:1px 6px;border-radius:5px;color:var(--ink)}
+  .tldr{border:1px solid var(--line);border-left:3px solid var(--go);border-radius:12px;
+    background:linear-gradient(180deg,rgba(55,208,126,.05),rgba(255,255,255,0));padding:18px 20px;margin:24px 0}
+  .tldr b{color:var(--ink)}
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-faint);font-size:13px}
+  footer a{color:var(--ink-faint)} footer a:hover{color:var(--ink)}
+  .foot-in{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  .foot-links{display:flex;gap:18px;flex-wrap:wrap}
+  @media (max-width:560px){
+    .wrap{padding:0 26px}
+    .doc{padding-block:38px 60px}
+    body{font-size:16px}
+    h1{font-size:32px}
+    .lead{font-size:16.5px}
+    h2{font-size:19px;margin-top:26px}
+    .tldr{padding:16px 18px}
+    .nav-in{height:58px}
+    .foot-in{justify-content:flex-start;gap:14px}
+  }
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+  <a class="brand" href="index.html"><svg class="ferry" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></svg> ShipBoard</a>
+  <a href="index.html">← Back to home</a>
+</div></nav>
+
+<main class="wrap doc">
+  <div class="eyebrow">Privacy</div>
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: June 2026</div>
+
+  <div class="tldr">
+    <b>The short version:</b> the ShipBoard <b>app</b> has no servers and collects nothing — no telemetry, no tracking, no accounts. Your AWS credentials and provider tokens stay on your Mac and are only ever sent to the providers you connect. This <b>website</b> uses Google Analytics to measure visits (see "Website analytics" below).
+  </div>
+
+  <p>ShipBoard ("the app") is a macOS menu-bar application that displays the status of your CI/CD pipelines. This policy explains what the app does — and doesn't do — with your information.</p>
+
+  <h2>The app</h2>
+  <p><span class="ink">The ShipBoard app collects nothing.</span> It has no backend service and no telemetry — no analytics, usage data, crash reports, device identifiers, or personal information of any kind, and there are no user accounts.</p>
+
+  <h2>Your credentials and tokens</h2>
+  <ul>
+    <li><span class="ink">AWS:</span> the app reads your local AWS configuration in <code>~/.aws</code> (read-only) to list profiles and call AWS CodePipeline. Credentials are never copied off your machine.</li>
+    <li><span class="ink">GitHub, GitLab, Vercel, Netlify:</span> the access tokens you enter are stored in the macOS <span class="ink">Keychain</span> and are only used to authenticate directly with that provider's API.</li>
+  </ul>
+  <p>These secrets remain on your Mac. They are transmitted only to the corresponding provider, over HTTPS, to fetch your pipeline status.</p>
+
+  <h2>Network connections</h2>
+  <p>ShipBoard makes network requests only to:</p>
+  <ul>
+    <li>the <span class="ink">CI/CD providers you configure</span> (AWS, GitHub, GitLab, Vercel, Netlify), to read pipeline and deployment status; and</li>
+    <li>the <span class="ink">ShipBoard update feed</span>, to check whether a new version is available (a standard request for an update manifest — no personal data is sent).</li>
+  </ul>
+  <p>It does not connect to any other service, and there is no ShipBoard-operated server that receives your data.</p>
+
+  <h2>Notifications</h2>
+  <p>Pipeline notifications are generated and shown locally by macOS. No notification content leaves your device.</p>
+
+  <h2>Website analytics</h2>
+  <p>This website — the page you're reading — uses <span class="ink">Google Analytics</span> to understand aggregate traffic, such as how many people visit and which pages they view. Google may set cookies and process data like your approximate location, device, and browser, as described in Google's own privacy policy. This is standard website analytics and is <span class="ink">entirely separate from the app</span>, which contains no analytics or telemetry. You can opt out through your browser's privacy settings or Google's opt-out tools.</p>
+
+  <h2>Third parties</h2>
+  <p>We never sell or rent your data. The app shares nothing; the only third party involved is Google Analytics on this website, as described above. Your interactions with AWS, GitHub, GitLab, Vercel, and Netlify are governed by those companies' own privacy policies.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If this policy changes, the updated version will be posted on this page with a new date.</p>
+
+  <h2>Contact</h2>
+  <p>Questions or concerns? Open an issue on <a href="https://github.com/keenanlk/shipboard/issues">GitHub</a>.</p>
+</main>
+
+<footer><div class="wrap foot-in">
+  <span>ShipBoard · © <span id="yr">2026</span></span>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+    <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+  </div>
+</div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
