@@ -136,16 +136,24 @@
   .board-head .spacer{flex:1}
   .board-head .hicon{color:var(--ink-faint)}
 
+  .grp{display:flex;align-items:center;gap:7px;padding:14px 6px 6px;
+    font-family:var(--mono);font-size:11.5px;color:var(--ink-faint)}
+  .grp:first-of-type{padding-top:3px}
+  .grp .glogo{width:15px;height:13px;color:var(--ink-dim);flex:none;object-fit:contain}
+  .grp.aws .glogo{width:22px}
+  .grp .gid{color:var(--ink-dim);font-weight:500}
+
   .row{background:rgba(255,255,255,.018);border:1px solid var(--line-2);border-radius:13px;
-    padding:13px 14px;margin-top:9px;border-left:3px solid var(--go);position:relative;overflow:hidden}
+    padding:12px 12px 13px;margin-top:7px;border-left:3px solid var(--go);position:relative;overflow:hidden}
   .row.amber{border-left-color:var(--amber)}
   .row-top{display:flex;align-items:center;gap:9px}
-  .row .plogo{width:15px;height:15px;color:var(--ink-dim);flex:none}
-  .row .pname{font-family:var(--mono);font-size:13.5px;font-weight:500;color:var(--ink);
+  .row .pname{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--ink);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .row .stat{margin-left:auto;width:18px;height:18px;flex:none;color:var(--go)}
-  .row.amber .stat{color:var(--amber)}
-  .sub{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:2px;margin-left:24px}
+  .row .chk{margin-left:auto;width:18px;height:18px;border-radius:50%;background:var(--go);
+    display:flex;align-items:center;justify-content:center;flex:none}
+  .row .chk svg{width:11px;height:11px;display:block}
+  .row.amber .chk{background:var(--amber)}
+  .sub{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:3px}
 
   .track{position:relative;display:flex;align-items:center;justify-content:space-between;margin:11px 4px 2px;height:12px}
   .track::before{content:'';position:absolute;left:3px;right:3px;top:50%;height:2px;transform:translateY(-50%);
@@ -297,50 +305,58 @@
       <svg class="hicon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
     </div>
 
+    <div class="grp aws"><svg class="glogo"><use href="#logo-aws"/></svg><span>default</span> · <span class="gid">us-east-1</span></div>
     <div class="row">
       <div class="row-top">
-        <svg class="plogo"><use href="#logo-github"/></svg>
-        <span class="pname">api-service · CI</span>
-        <svg class="stat" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.4-5.4 1.4 1.4-6.8 6.8z"/></svg>
+        <span class="pname">api-gateway-pipeline</span>
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#04130b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
       </div>
       <div class="track"><span class="node" style="animation-delay:.5s"></span><span class="node" style="animation-delay:.58s"></span><span class="node" style="animation-delay:.66s"></span><span class="node" style="animation-delay:.74s"></span><span class="node" style="animation-delay:.82s"></span></div>
     </div>
-
     <div class="row">
       <div class="row-top">
-        <svg class="plogo"><use href="#logo-aws"/></svg>
-        <span class="pname">payments-prod-pipeline</span>
-        <svg class="stat" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.4-5.4 1.4 1.4-6.8 6.8z"/></svg>
+        <span class="pname">web-app-pipeline</span>
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#04130b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
       </div>
       <div class="track"><span class="node" style="animation-delay:.6s"></span><span class="node" style="animation-delay:.68s"></span><span class="node" style="animation-delay:.76s"></span><span class="node" style="animation-delay:.84s"></span></div>
     </div>
 
-    <div class="row amber">
-      <div class="row-top">
-        <svg class="plogo"><use href="#logo-vercel"/></svg>
-        <span class="pname">marketing-site</span>
-        <svg class="stat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9"/></svg>
-      </div>
-      <div class="sub">Preview · feat/new-hero</div>
-      <div class="track"><span class="node" style="animation-delay:.7s"></span><span class="node amber" style="animation-delay:.78s"></span></div>
-    </div>
-
+    <div class="grp"><svg class="glogo"><use href="#logo-github"/></svg><span class="gid">acme/api</span> · main</div>
     <div class="row">
       <div class="row-top">
-        <svg class="plogo"><use href="#logo-gitlab"/></svg>
-        <span class="pname">data-platform</span>
-        <svg class="stat" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.4-5.4 1.4 1.4-6.8 6.8z"/></svg>
+        <span class="pname">build &amp; test</span>
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#04130b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      </div>
+      <div class="track"><span class="node" style="animation-delay:.7s"></span><span class="node" style="animation-delay:.78s"></span><span class="node" style="animation-delay:.86s"></span></div>
+    </div>
+
+    <div class="grp"><svg class="glogo"><use href="#logo-gitlab"/></svg><span class="gid">data-platform</span></div>
+    <div class="row">
+      <div class="row-top">
+        <span class="pname">deploy</span>
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#04130b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
       </div>
       <div class="track"><span class="node" style="animation-delay:.8s"></span><span class="node" style="animation-delay:.88s"></span><span class="node" style="animation-delay:.96s"></span></div>
     </div>
 
+    <div class="grp"><svg class="glogo"><use href="#logo-vercel"/></svg><span class="gid">marketing-site</span></div>
     <div class="row">
       <div class="row-top">
-        <svg class="plogo"><use href="#logo-netlify"/></svg>
-        <span class="pname">docs</span>
-        <svg class="stat" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.4-5.4 1.4 1.4-6.8 6.8z"/></svg>
+        <span class="pname">Production</span>
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#04130b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
       </div>
-      <div class="sub">Production · main</div>
+      <div class="sub">main · ship: new hero</div>
+      <div class="track"><span class="node" style="animation-delay:.9s"></span></div>
+    </div>
+
+    <div class="grp"><svg class="glogo"><use href="#logo-netlify"/></svg><span class="gid">docs-portal</span></div>
+    <div class="row amber">
+      <div class="row-top">
+        <span class="pname">Production</span>
+        <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#1a1407" stroke-width="3" stroke-linecap="round"><path d="M12 6v6l4 2"/></svg></span>
+      </div>
+      <div class="sub">building…</div>
+      <div class="track"><span class="node amber" style="animation-delay:1s"></span></div>
     </div>
   </div>
 </header>
