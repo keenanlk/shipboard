@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>ShipBoard</title>
+    <item>
+      <title>Version 1.0.0</title>
+      <pubDate>Tue, 16 Jun 2026 05:13:09 +0000</pubDate>
+      <sparkle:version>20260616050624</sparkle:version>
+      <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/keenanlk/shipboard/releases/download/v1.0.0/ShipBoard-1.0.0.dmg" type="application/octet-stream" sparkle:edSignature="de+QWO5dSBIc+JgtU4yUvQWftZycg469pZPPrQE4MaDVu1bS4R2Bl/XoHf8ti+bEXqaOH1LAZGgTP9gp3zeZBg==" length="3515710"/>
+    </item>
+  </channel>
+</rss>
