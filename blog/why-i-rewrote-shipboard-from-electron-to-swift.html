@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Why I rewrote ShipBoard from Electron to native Swift</title>
+<meta name="description" content="ShipBoard started as an Electron app. Here's why I rewrote it in native Swift/SwiftUI — a tiny, fast Mac menu-bar app for monitoring AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify." />
+<link rel="canonical" href="https://shipboardapp.com/blog/why-i-rewrote-shipboard-from-electron-to-swift.html" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="Why I rewrote ShipBoard from Electron to native Swift" />
+<meta property="og:description" content="Why I ditched Chromium for a tiny native Swift menu-bar app that watches AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify." />
+<meta property="og:url" content="https://shipboardapp.com/blog/why-i-rewrote-shipboard-from-electron-to-swift.html" />
+<meta property="og:image" content="https://shipboardapp.com/blog-cover.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Why I rewrote ShipBoard from Electron to native Swift" />
+<meta name="twitter:description" content="Why I ditched Chromium for a tiny native Swift menu-bar app for CI/CD pipeline status." />
+<meta name="twitter:image" content="https://shipboardapp.com/blog-cover.png" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0a0e13;--bg-2:#0d121a;--panel:#10161f;--panel-2:#0c1119;
+    --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.05);
+    --ink:#e9eef4;--ink-dim:#9aa6b4;--ink-faint:#5d6b7a;
+    --go:#37d07e;--go-dim:rgba(55,208,126,.16);--amber:#f3c14b;--red:#f0616d;
+    --display:'Bricolage Grotesque', sans-serif;--body:'Hanken Grotesk', sans-serif;--mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+  body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:radial-gradient(60rem 40rem at 78% -8%, rgba(55,208,126,.10), transparent 60%),radial-gradient(48rem 38rem at 8% 12%, rgba(72,120,255,.07), transparent 60%),var(--bg)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:linear-gradient(to bottom, rgba(10,14,19,.82), rgba(10,14,19,.55));border-bottom:1px solid var(--line-2)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .brand .ferry{color:var(--go)}
+  .nav-links{display:flex;align-items:center;gap:22px;font-size:15px;color:var(--ink-dim)}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{font-family:var(--body);font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:transform .15s ease, box-shadow .25s ease, background .2s ease, border-color .2s}
+  .btn-primary{background:var(--go);color:#04130b;box-shadow:0 0 0 0 var(--go-dim)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 32px -8px rgba(55,208,126,.5)}
+  .nav-links .btn{padding:9px 15px}
+
+  /* ---------- article ---------- */
+  .article{max-width:720px;margin:0 auto;padding:0 28px}
+  .post-head{padding-block:56px 22px}
+  .crumb{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-faint)}
+  .crumb a{color:var(--go)}
+  .post-head h1{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.04;font-size:clamp(32px,5vw,52px);margin:16px 0 0}
+  .post-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);margin-top:18px}
+  .post-meta span{color:var(--ink-dim)}
+
+  .figure{margin:30px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel-2);box-shadow:0 30px 70px -34px rgba(0,0,0,.7)}
+  .figure video,.figure img{display:block;width:100%;height:auto}
+  figcaption{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-align:center;padding:10px 14px;border-top:1px solid var(--line-2)}
+
+  .prose{font-size:18px;color:var(--ink-dim)}
+  .prose p{margin:20px 0}
+  .prose h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;color:var(--ink);font-size:clamp(24px,3.4vw,32px);margin:44px 0 0;line-height:1.12}
+  .prose h2 + p{margin-top:14px}
+  .prose strong,.prose b{color:var(--ink);font-weight:600}
+  .prose a{color:var(--go);border-bottom:1px solid rgba(55,208,126,.35)}
+  .prose a:hover{border-bottom-color:var(--go)}
+  .prose ul{margin:18px 0;padding-left:22px}
+  .prose li{margin:9px 0}
+  .prose code{font-family:var(--mono);font-size:.86em;color:var(--ink);background:rgba(255,255,255,.05);padding:2px 7px;border-radius:6px;border:1px solid var(--line-2)}
+  .prose blockquote{margin:24px 0;padding:4px 0 4px 20px;border-left:3px solid var(--go);color:var(--ink);font-style:italic}
+
+  .post-cta{margin:46px 0 20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(55,208,126,.06),rgba(255,255,255,.01));padding:34px 28px;text-align:center}
+  .post-cta h3{font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em}
+  .post-cta p{color:var(--ink-dim);margin:10px auto 22px;max-width:30em;font-size:16.5px}
+
+  footer{border-top:1px solid var(--line-2);padding:40px 0;color:var(--ink-faint);font-size:14px;margin-top:50px}
+  .foot-in{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot-links a:hover{color:var(--ink)}
+  .foot-meta{font-family:var(--mono);font-size:12px}
+
+  @media (max-width:880px){.nav-links a:not(.btn){display:none}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BlogPosting",
+  "headline":"Why I rewrote ShipBoard from Electron to native Swift",
+  "description":"ShipBoard started as an Electron app. Here's why I rewrote it in native Swift/SwiftUI — a tiny, fast Mac menu-bar app for CI/CD pipeline status.",
+  "image":"https://shipboardapp.com/blog-cover.png",
+  "datePublished":"2026-06-17",
+  "dateModified":"2026-06-17",
+  "author":{"@type":"Person","name":"Keenan Kaufman"},
+  "publisher":{"@type":"Organization","name":"ShipBoard"},
+  "mainEntityOfPage":"https://shipboardapp.com/blog/why-i-rewrote-shipboard-from-electron-to-swift.html"
+}
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+  <symbol id="logo-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+</svg>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="../index.html"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="nav-links">
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#providers">Providers</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a class="btn btn-primary" href="../download.html">Download</a>
+    </div>
+  </div>
+</nav>
+
+<article class="article">
+  <div class="post-head">
+    <div class="crumb"><a href="/">ShipBoard</a> / blog</div>
+    <h1>Why I rewrote ShipBoard from Electron to native Swift</h1>
+    <div class="post-meta"><span>Keenan Kaufman</span> · June 17, 2026 · 4 min read</div>
+  </div>
+
+  <figure class="figure">
+    <video src="../shipboard-demo.mp4" poster="../blog-cover.png" autoplay muted loop playsinline controls></video>
+    <figcaption>ShipBoard in the menu bar — api-service fails, and a native notification fires.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <p>I kept missing failed deploys. Our work is spread across <strong>AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify</strong>, and the only way to know if the last deploy went green was to keep five browser tabs open and refresh them like a nervous habit. So I built a little Mac menu-bar app to put them all in one place. I called it ShipBoard.</p>
+
+    <p>The first version was an <strong>Electron</strong> app. It worked — and shipping something that worked mattered more than how it was built. But the longer I lived with it, the more it grated.</p>
+
+    <h2>What bugged me about the Electron build</h2>
+    <p>For a thing whose entire job is to sit quietly in the menu bar, Electron felt heavy in all the wrong ways:</p>
+    <ul>
+      <li><strong>Footprint.</strong> A bundled Chromium for an app that draws a list of dots. It idled at a few hundred MB of memory and a download in the hundreds of MB — absurd for a status light.</li>
+      <li><strong>It never felt native.</strong> The menu-bar popover, the fonts, the notifications — close, but always slightly off from what a Mac app should feel like.</li>
+      <li><strong>The Mac integrations I wanted were awkward.</strong> Reading <code>~/.aws</code> profiles, storing tokens in the Keychain, real <code>UNUserNotification</code> banners — all doable, but always through a layer.</li>
+    </ul>
+    <p>For a tool people leave running all day, "tiny and native" isn't a nice-to-have — it <em>is</em> the product.</p>
+
+    <h2>So I rewrote it in Swift</h2>
+    <p>I rebuilt ShipBoard from scratch in <strong>Swift and SwiftUI</strong> as a proper <code>LSUIElement</code> menu-bar app. The difference is exactly what you'd hope:</p>
+    <ul>
+      <li><strong>A fraction of the size and memory</strong> — a small, signed, notarized, universal binary instead of a Chromium instance.</li>
+      <li><strong>It feels like a Mac app</strong>, because it is one — native popover, native notifications, native everything.</li>
+      <li><strong>The integrations got simple.</strong> AWS reads your existing <code>~/.aws</code> profiles directly (read-only, SSO or access keys). Provider tokens live in the macOS Keychain and are verified before they're saved. There's <strong>no backend</strong> — ShipBoard talks straight to each provider, and your credentials never leave your machine.</li>
+    </ul>
+
+    <p>I'll be honest about the process: the port was a lot of mechanical, cross-language grunt work, and I leaned on <a href="https://www.anthropic.com/claude-code">Claude Code</a> to move fast. I owned the architecture and reviewed every diff — it was a force multiplier, not autopilot — but it's the reason a from-scratch rewrite was a weekend instead of a month. The unglamorous wins were the best part: it helped me keep a real test suite green and root-cause a gnarly macOS notification bug (turns out the system silently suppresses banners while your app is foreground unless you implement the right delegate).</p>
+
+    <h2>What ShipBoard is now</h2>
+    <p>One board in your menu bar for every pipeline you ship through — AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify. Green when everything's shipping, red the moment it isn't, and a native notification the second a build fails. Multiple accounts and regions, a refresh interval you control, and it polls faster while something's broken.</p>
+
+    <p>It's <strong>free</strong>, it's native, and it runs entirely on your Mac. If you've ever kept five dashboards open just to answer "did it deploy?" — this is the app I wanted.</p>
+  </div>
+
+  <div class="post-cta">
+    <h3>Stop babysitting dashboards.</h3>
+    <p>Point ShipBoard at your pipelines and forget about it — until it lights up red.</p>
+    <a class="btn btn-primary" href="../download.html">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg>
+      Download for macOS — Free
+    </a>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="../index.html" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="../download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="../privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span></div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
