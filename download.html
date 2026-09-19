@@ -94,10 +94,35 @@
           })[0];
           if (dmg && dmg.browser_download_url) {
             manual.href = dmg.browser_download_url; // upgrade fallback to the direct file
+            // The download starts from script, not a click, so GA's automatic
+            // file_download tracking never sees it. Report it by hand, under the same
+            // event name, so it counts alongside real .dmg link clicks. Beacon transport
+            // lets the hit survive the navigation that follows.
+            track(dmg.browser_download_url, dmg.name, 'auto', d.tag_name);
             setTimeout(function () { window.location.href = dmg.browser_download_url; }, 600);
           }
         })
         .catch(function () { /* leave the manual link pointing at the releases page */ });
+
+      // If the API was unreachable, the manual link still points at the releases page,
+      // which GA would not count as a download. (Once upgraded to the .dmg above, GA's
+      // own tracking counts a click on it, so this only fires for the fallback.)
+      manual.addEventListener('click', function () {
+        if (!/\.dmg$/i.test(manual.href)) track(manual.href, 'releases page', 'fallback', null);
+      });
+
+      function track(url, name, method, version) {
+        if (typeof gtag !== 'function') return;
+        gtag('event', 'file_download', {
+          file_extension: 'dmg',
+          file_name: name,
+          link_url: url,
+          link_text: 'ShipBoard download',
+          method: method,
+          app_version: version || undefined,
+          transport_type: 'beacon'
+        });
+      }
     })();
   </script>
 </body>
