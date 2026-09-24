@@ -217,7 +217,25 @@
   .closer .cta-row{justify-content:center}
 
   /* ---------- what / see it / setup / permissions / faq ---------- */
+  .what{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
   .what p{color:var(--ink-dim);font-size:18px;max-width:44em;margin-top:14px}
+  /* notification stage (What is ShipBoard?) */
+  .notif-stage{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+    background:linear-gradient(180deg,#0f151e,#0b1017)}
+  .notif-stage .mbar{display:flex;justify-content:flex-end;align-items:center;gap:16px;height:28px;padding:0 16px;
+    background:rgba(255,255,255,.04);border-bottom:1px solid var(--line-2);font-family:var(--mono);font-size:11.5px;color:var(--ink-dim)}
+  .notif-stage .mbar svg{width:15px;height:15px;color:var(--go);display:block}
+  .notif-stack{padding:24px 24px 30px;display:flex;flex-direction:column;gap:10px}
+  .notif{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:#1b2029;border:1px solid rgba(255,255,255,.09);
+    border-radius:18px;box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
+  .notif.old{opacity:.5;transform:scale(.96);box-shadow:none}
+  .app-tile{width:38px;height:38px;border-radius:10px;flex:none;display:grid;place-items:center;background:var(--bg);border:1px solid rgba(255,255,255,.1)}
+  .app-tile svg{width:24px;height:24px;color:var(--go);display:block}
+  .notif .nt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+  .notif .nt-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .notif b{font-size:14px;font-weight:600;color:var(--ink)}
+  .notif time{font-size:12px;color:#8b97a6}
+  .notif .nt span{font-size:13.5px;color:#b3bdc9}
   .what b{color:var(--ink);font-weight:600}
   .what .mono,.faq code,.perm code{font-family:var(--mono);font-size:.85em;color:var(--ink);
     background:rgba(255,255,255,.04);padding:1px 5px;border-radius:5px}
@@ -228,7 +246,27 @@
   .media img,.media video{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--line);background:var(--panel)}
   .media figcaption{font-size:14px;color:var(--ink-faint);margin-top:8px}
   .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;counter-reset:step}
-  .steps3 li{list-style:none;border:1px solid var(--line);border-radius:16px;padding:22px;counter-increment:step}
+  .steps3 li{list-style:none;border:1px solid var(--line);border-radius:16px;padding:22px;counter-increment:step;display:flex;flex-direction:column}
+  .step-art{order:-1;height:140px;margin-bottom:18px;border-radius:12px;background:var(--bg);border:1px solid var(--line-2);
+    display:flex;align-items:center;justify-content:center;gap:16px}
+  .step-art .cap{font-family:var(--mono);font-size:11px;color:var(--ink-dim)}
+  .step-art .col{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .step-art .app-tile{width:52px;height:52px;border-radius:14px}
+  .step-art .app-tile svg{width:32px;height:32px}
+  .tick{width:12px;height:12px;display:block;fill:none;stroke:#04130b;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+  .tok{width:220px;display:flex;flex-direction:column;gap:9px}
+  .tok-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink)}
+  .tok-label svg{width:16px;height:16px;display:block}
+  .tok-field{display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 9px 0 12px;border-radius:9px;
+    background:var(--panel);border:1px solid var(--go);font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-dim)}
+  .tok-field .ok{width:20px;height:20px;border-radius:50%;background:var(--go);display:grid;place-items:center}
+  .tok-note{font-family:var(--mono);font-size:11px;color:var(--go)}
+  .picks{display:flex;flex-direction:column;gap:10px;font-family:var(--mono);font-size:12px}
+  .picks div{display:flex;align-items:center;gap:10px;color:var(--ink)}
+  .picks div.off{color:var(--ink-faint)}
+  .picks .box{width:16px;height:16px;border-radius:4px;background:var(--go);display:grid;place-items:center;flex:none}
+  .picks .off .box{background:none;border:1.5px solid #3b4a5c;box-sizing:border-box}
+  .picks svg.pl{height:13px;width:22px;display:block;color:var(--ink-dim)}
   .steps3 li::before{content:counter(step);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
     background:var(--go-dim);color:var(--go);font-family:var(--mono);font-weight:700;margin-bottom:12px}
   .steps3 h3{font-family:var(--display);font-weight:700;font-size:19px}
@@ -238,13 +276,17 @@
   .perm th,.perm td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}
   .perm thead th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
   .perm tbody th{color:var(--ink);font-weight:600;white-space:nowrap}
+  .perm tbody th a{display:inline-flex;align-items:center;gap:12px}
+  .plogo{width:40px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;background:var(--panel);border:1px solid var(--line)}
+  .plogo svg{width:18px;height:18px;display:block;color:var(--ink)}
+  .plogo.aws svg{width:28px;height:14px}
   .perm td{color:var(--ink-dim)}
   .faq > *{max-width:52em}
   .faq h2{margin-bottom:10px}
   .faq details{border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:12px;background:rgba(255,255,255,.015)}
   .faq summary{cursor:pointer;font-weight:600;color:var(--ink)}
   .faq details p{color:var(--ink-dim);margin-top:10px}
-  @media (max-width:880px){.steps3{grid-template-columns:1fr}}
+  @media (max-width:880px){.steps3{grid-template-columns:1fr}.what{grid-template-columns:1fr;gap:32px}}
 
   /* ---------- maker ---------- */
   .maker{padding-block:24px 40px}
@@ -457,10 +499,19 @@
 </section>
 
 <section id="what" class="wrap what">
+  <div>
   <div class="sec-tag">What is ShipBoard?</div>
   <h2>A status board for every pipeline you ship through.</h2>
   <p><b>ShipBoard is a free macOS menu-bar app that shows the status of your CI/CD pipelines and deployments in one place.</b> It connects directly to AWS CodePipeline, GitHub Actions, GitLab CI, Vercel and Netlify, checks them on an interval you choose (every 15 seconds to 5 minutes), and colours each pipeline green, amber or red. When a run fails, macOS shows a native notification, so you find out without keeping dashboards open.</p>
   <p>ShipBoard is a native Swift app for macOS 14 or later on Apple Silicon and Intel Macs. It’s under 7 MB, signed and notarized by Apple, and keeps itself up to date. There are no servers and no account: AWS access comes from the profiles already in your <span class="mono">~/.aws</span> folder, and provider tokens stay in the macOS Keychain.</p>
+  </div>
+  <div class="notif-stage" role="img" aria-label="Two ShipBoard notifications on a Mac: api-service failed to deploy, and web-app-pipeline has finished deploying">
+    <div class="mbar"><svg><use href="#i-ferry"/></svg><span>Wi-Fi</span><span>Tue 9:41</span></div>
+    <div class="notif-stack">
+      <div class="notif"><span class="app-tile"><svg><use href="#i-ferry"/></svg></span><div class="nt"><div class="nt-top"><b>api-service Failed</b><time>now</time></div><span>api-service failed to deploy.</span></div></div>
+      <div class="notif old"><span class="app-tile"><svg><use href="#i-ferry"/></svg></span><div class="nt"><div class="nt-top"><b>web-app-pipeline Finished!</b><time>2m ago</time></div><span>web-app-pipeline has finished deploying!</span></div></div>
+    </div>
+  </div>
 </section>
 
 <section id="features" class="wrap">
@@ -538,9 +589,9 @@
     <h2>Running in about a minute.</h2>
   </div>
   <ol class="steps3">
-    <li><h3>Install</h3><p>Download the .dmg, drag ShipBoard to Applications and open it. It’s signed and notarized, so there are no Gatekeeper warnings.</p></li>
-    <li><h3>Connect</h3><p>Pick an AWS profile you already use, or paste a read-only token for GitHub, GitLab, Vercel or Netlify. Tokens are checked before they’re saved to your Keychain.</p></li>
-    <li><h3>Choose</h3><p>Tick the pipelines, workflows, branches or environments you care about. They appear on the board right away.</p></li>
+    <li><div class="step-art" aria-hidden="true"><div class="col"><span class="app-tile"><svg><use href="#i-ferry"/></svg></span><span class="cap">ShipBoard.app</span></div><svg width="42" height="16" viewBox="0 0 46 16"><path d="M2 8h38M34 2l6 6-6 6" fill="none" stroke="#5d6b7a" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="col"><svg width="60" height="48" viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l6 6h26a4 4 0 0 1 4 4v30a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4Z" fill="#1d2633" stroke="#3b4a5c" stroke-width="1.5"/><path d="M26 30l6 6 6-6M32 20v16" fill="none" stroke="#9aa6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="cap">Applications</span></div></div><h3>Install</h3><p>Download the .dmg, drag ShipBoard to Applications and open it. It’s signed and notarized, so there are no Gatekeeper warnings.</p></li>
+    <li><div class="step-art" aria-hidden="true"><div class="tok"><span class="tok-label"><svg><use href="#logo-github"/></svg>GitHub token</span><span class="tok-field">github_pat_••••••••<span class="ok"><svg class="tick" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></span><span class="tok-note">Verified · saved to Keychain</span></div></div><h3>Connect</h3><p>Pick an AWS profile you already use, or paste a read-only token for GitHub, GitLab, Vercel or Netlify. Tokens are checked before they’re saved to your Keychain.</p></li>
+    <li><div class="step-art" aria-hidden="true"><div class="picks"><div class=""><span class="box"><svg class="tick" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><svg class="pl"><use href="#logo-aws"/></svg>api-gateway-pipeline</div><div class=""><span class="box"><svg class="tick" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><svg class="pl"><use href="#logo-github"/></svg>build &amp; test</div><div class="off"><span class="box"></span><svg class="pl"><use href="#logo-gitlab"/></svg>staging-deploy</div><div class=""><span class="box"><svg class="tick" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><svg class="pl"><use href="#logo-vercel"/></svg>Production</div></div></div><h3>Choose</h3><p>Tick the pipelines, workflows, branches or environments you care about. They appear on the board right away.</p></li>
   </ol>
 </section>
 
@@ -553,11 +604,11 @@
   <div class="perm-wrap"><table class="perm">
     <thead><tr><th>Provider</th><th>What you give ShipBoard</th><th>Access it needs</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><a href="/codepipeline/">AWS CodePipeline</a></th><td>A profile already in <code>~/.aws</code> (SSO or access key)</td><td><code>codepipeline:ListPipelines</code>, <code>GetPipeline</code> and <code>GetPipelineState</code> — or the <code>AWSCodePipelineReadOnlyAccess</code> policy</td></tr>
-      <tr><th scope="row"><a href="/github-actions/">GitHub Actions</a></th><td>Fine-grained personal access token</td><td>Actions: Read-only and Metadata: Read-only</td></tr>
-      <tr><th scope="row"><a href="/gitlab-ci/">GitLab CI</a></th><td>Personal access token</td><td>The <code>read_api</code> scope</td></tr>
-      <tr><th scope="row"><a href="/vercel/">Vercel</a></th><td>Access token</td><td>Scoped to your account, a team or a project (Vercel has no read-only tokens; ShipBoard only reads)</td></tr>
-      <tr><th scope="row"><a href="/netlify/">Netlify</a></th><td>Personal access token</td><td>Netlify tokens have no scopes; ShipBoard only reads</td></tr>
+      <tr><th scope="row"><a href="/codepipeline/"><span class="plogo aws" aria-hidden="true"><svg><use href="#logo-aws"/></svg></span>AWS CodePipeline</a></th><td>A profile already in <code>~/.aws</code> (SSO or access key)</td><td><code>codepipeline:ListPipelines</code>, <code>GetPipeline</code> and <code>GetPipelineState</code> — or the <code>AWSCodePipelineReadOnlyAccess</code> policy</td></tr>
+      <tr><th scope="row"><a href="/github-actions/"><span class="plogo" aria-hidden="true"><svg><use href="#logo-github"/></svg></span>GitHub Actions</a></th><td>Fine-grained personal access token</td><td>Actions: Read-only and Metadata: Read-only</td></tr>
+      <tr><th scope="row"><a href="/gitlab-ci/"><span class="plogo" aria-hidden="true"><svg><use href="#logo-gitlab"/></svg></span>GitLab CI</a></th><td>Personal access token</td><td>The <code>read_api</code> scope</td></tr>
+      <tr><th scope="row"><a href="/vercel/"><span class="plogo" aria-hidden="true"><svg><use href="#logo-vercel"/></svg></span>Vercel</a></th><td>Access token</td><td>Scoped to your account, a team or a project (Vercel has no read-only tokens; ShipBoard only reads)</td></tr>
+      <tr><th scope="row"><a href="/netlify/"><span class="plogo" aria-hidden="true"><svg><use href="#logo-netlify"/></svg></span>Netlify</a></th><td>Personal access token</td><td>Netlify tokens have no scopes; ShipBoard only reads</td></tr>
     </tbody>
   </table></div>
 </section>
