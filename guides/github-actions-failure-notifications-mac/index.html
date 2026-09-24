@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mac desktop alerts for failed GitHub Actions workflows</title>
+<meta name="description" content="Get a macOS notification when a GitHub Actions workflow fails: GitHub&#x27;s own notification settings, their limits, and a menu-bar option." />
+<link rel="canonical" href="https://shipboardapp.com/guides/github-actions-failure-notifications-mac/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="Mac desktop alerts for failed GitHub Actions workflows" />
+<meta property="og:description" content="Get a macOS notification when a GitHub Actions workflow fails: GitHub&#x27;s own notification settings, their limits, and a menu-bar option." />
+<meta property="og:url" content="https://shipboardapp.com/guides/github-actions-failure-notifications-mac/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Mac desktop alerts for failed GitHub Actions workflows" />
+<meta name="twitter:description" content="Get a macOS notification when a GitHub Actions workflow fails: GitHub&#x27;s own notification settings, their limits, and a menu-bar option." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://shipboardapp.com/guides/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Mac desktop alerts for failed GitHub Actions workflows",
+          "item": "https://shipboardapp.com/guides/github-actions-failure-notifications-mac/"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://shipboardapp.com/guides/github-actions-failure-notifications-mac/#article",
+      "headline": "Mac desktop alerts for failed GitHub Actions workflows",
+      "description": "Get a macOS notification when a GitHub Actions workflow fails: GitHub's own notification settings, their limits, and a menu-bar option.",
+      "datePublished": "2026-09-23",
+      "dateModified": "2026-09-23",
+      "image": "https://shipboardapp.com/og-image.jpg",
+      "author": {
+        "@id": "https://shipboardapp.com/#keenan"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      },
+      "mainEntityOfPage": "https://shipboardapp.com/guides/github-actions-failure-notifications-mac/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> <a href="/guides/">Guides</a> <span>/</span> Mac desktop alerts for failed GitHub Actions workflows</nav>
+  <div class="page-head">
+    <div class="eyebrow">Guide · GitHub Actions</div>
+    <h1>Get a Mac notification when a GitHub Actions workflow fails</h1>
+    <p class="lede">GitHub can tell you about failed workflow runs — but only some of them, and not as a native Mac notification. Here’s what GitHub’s settings actually do, where they fall short, and how to fill the gap.</p>
+    <p class="meta">By <a href="/#maker">Keenan Kaufman</a> · September 23, 2026</p>
+  </div>
+
+  <section>
+    <h2>Step 1: turn on GitHub’s own Actions notifications</h2>
+    <ol class="steps">
+      <li>On github.com, open your avatar menu → <b>Settings</b> → <b>Notifications</b>.</li>
+      <li>Under <b>System</b>, find <b>Actions</b>. It defaults to <b>Don’t notify</b>.</li>
+      <li>Choose <b>On GitHub</b> (your notifications inbox), <b>Email</b>, or both, tick <b>Only notify for failed workflows</b>, and save.</li>
+    </ol>
+    <p>With <b>On GitHub</b> selected, the GitHub Mobile app can push those notifications to your phone.</p>
+  </section>
+
+  <section>
+    <h2>Where GitHub’s notifications fall short</h2>
+    <ul class="ticks">
+      <li><b>Only runs you triggered.</b> GitHub notifies you about workflow runs you started. A teammate’s push that breaks <code>main</code> won’t reach you. Scheduled workflows notify whoever created or last edited the schedule.</li>
+      <li><b>No native Mac notification.</b> GitHub documents three channels — the web inbox, email and GitHub Mobile. None of them is a macOS notification banner.</li>
+      <li><b>GitHub Desktop covers pull requests only.</b> It can show a macOS notification when pull request checks fail for the repository you have selected — useful, but not every workflow run. Turn it on under <b>GitHub Desktop → Settings → Notifications</b>, then allow GitHub Desktop in <b>System Settings → Notifications</b>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Step 2: get a real macOS notification for any run</h2>
+    <p>A menu-bar app that polls the GitHub Actions API closes both gaps: it watches the workflows you pick regardless of who triggered them, and it uses ordinary macOS notifications, so Focus modes and Notification Center work as usual.</p>
+    <p><a href="/github-actions/">ShipBoard</a> does this with a fine-grained personal access token that has only <b>Actions: Read-only</b> and <b>Metadata: Read-only</b>:</p>
+    <ol class="steps">
+      <li><a href="https://github.com/settings/personal-access-tokens/new">Create a fine-grained token</a>, choose the repositories, and set <b>Actions</b> and <b>Metadata</b> to <b>Read-only</b>.</li>
+      <li><a href="/download.html">Install ShipBoard</a>, click <b>+</b>, choose <b>GitHub</b> and paste the token. It’s verified with GitHub, then stored in your Keychain.</li>
+      <li>Tick the workflows to watch. When a run ShipBoard follows goes from running to failed, you get a native notification with the workflow’s name.</li>
+    </ol>
+    <p>Two things to know. ShipBoard follows each workflow’s default branch, and it works with github.com only, not GitHub Enterprise Server. Each check makes roughly two API calls per workflow, so if you watch a lot of workflows, a refresh interval of a minute or two keeps you comfortably inside GitHub’s hourly API limit.</p>
+    <p>ShipBoard is free and also covers GitLab CI, AWS CodePipeline, Vercel and Netlify. If GitHub Actions is all you use, a single-purpose app may suit you better — see <a href="/compare/">how the options compare</a>.</p>
+  </section>
+
+  <section>
+    <h2>Which should you use?</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Option</th><th>Which runs</th><th>Where you see it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">GitHub notification settings</th><td>Runs you triggered</td><td>Web inbox, email, GitHub Mobile</td></tr>
+        <tr><th scope="row">GitHub Desktop</th><td>Failed pull request checks in the selected repository</td><td>macOS notification</td></tr>
+        <tr><th scope="row">A menu-bar app such as ShipBoard</th><td>Every run of the workflows you pick</td><td>macOS notification and the menu bar</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <ul class="ticks">
+      <li><a href="https://docs.github.com/en/subscriptions-and-notifications/how-tos/managing-github-actions-notifications">GitHub Docs: managing GitHub Actions notifications</a></li>
+      <li><a href="https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs">GitHub Docs: notifications for workflow runs</a></li>
+      <li><a href="https://docs.github.com/en/desktop/working-with-your-remote-repository-on-github-or-github-enterprise/configuring-notifications-in-github-desktop">GitHub Docs: configuring notifications in GitHub Desktop</a></li>
+      <li><a href="https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens">GitHub Docs: permissions required for fine-grained tokens</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

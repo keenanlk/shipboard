@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vercel deployment status in your Mac menu bar — ShipBoard</title>
+<meta name="description" content="Track Vercel production, preview and custom-environment deployments from the macOS menu bar, with a native alert when a build fails. Free." />
+<link rel="canonical" href="https://shipboardapp.com/vercel/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="Vercel deployment status in your Mac menu bar — ShipBoard" />
+<meta property="og:description" content="Track Vercel production, preview and custom-environment deployments from the macOS menu bar, with a native alert when a build fails. Free." />
+<meta property="og:url" content="https://shipboardapp.com/vercel/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Vercel deployment status in your Mac menu bar — ShipBoard" />
+<meta name="twitter:description" content="Track Vercel production, preview and custom-environment deployments from the macOS menu bar, with a native alert when a build fails. Free." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Vercel",
+          "item": "https://shipboardapp.com/vercel/"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://shipboardapp.com/vercel/#webpage",
+      "url": "https://shipboardapp.com/vercel/",
+      "name": "Vercel deployment status in your Mac menu bar — ShipBoard",
+      "about": {
+        "@id": "https://shipboardapp.com/#app"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+  <symbol id="logo-vercel" viewBox="0 0 24 24"><path fill="currentColor" d="m12 1.608 12 20.784H0Z"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> Vercel</nav>
+  <div class="page-head">
+    <div class="eyebrow"><svg aria-hidden="true"><use href="#logo-vercel"/></svg> Vercel</div>
+    <h1>Vercel deployment status in your Mac menu bar</h1>
+    <p class="lede">ShipBoard shows the latest Vercel deployment for each project and environment you pick — Production, Preview or a custom environment — in the macOS menu bar, and sends a native notification the moment a build fails.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/download.html">Download ShipBoard — Free</a>
+      <span class="meta">macOS 14+ · Apple Silicon &amp; Intel · v1.1.1</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>What you see for each environment</h2>
+    <ul class="ticks">
+      <li>The newest deployment per environment, split into <b>Build</b> and <b>Deploy</b> steps.</li>
+      <li>The Git branch and commit message, for projects connected to GitHub.</li>
+      <li><b>Open deployment on Vercel</b> to jump to the deployment inspector.</li>
+      <li>Green when ready; red on error; amber while queued, initializing or building; grey when canceled.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Set it up</h2>
+    <ol class="steps">
+      <li>Create an <a href="https://vercel.com/account/tokens">access token</a> in your Vercel account settings. Choose a scope that covers the projects you want: <b>Full Account</b> includes your personal projects and every team you belong to.</li>
+      <li>In ShipBoard, click <b>+</b>, choose <b>Vercel</b>, and paste the token. It’s verified with Vercel, then saved to your Keychain.</li>
+      <li>Search your projects and tick the environments to watch.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What access ShipBoard needs</h2>
+    <div class="table-scroll"><table>
+      <tr><th scope="row">Credential</th><td>A Vercel access token, stored in the macOS Keychain.</td></tr>
+      <tr><th scope="row">Scope</th><td>Vercel tokens are scoped to your full account, one team or one project, and can’t be made read-only. ShipBoard only makes read requests.</td></tr>
+      <tr><th scope="row">API calls</th><td><code>GET /v2/user</code>, <code>/v2/teams</code>, <code>/v9/projects</code>, <code>…/custom-environments</code>, <code>/v6/deployments</code></td></tr>
+    </table></div>
+    <p>ShipBoard never creates, promotes or deletes deployments. Setting an expiry date on the token is a good habit.</p>
+  </section>
+
+  <section>
+    <h2>Good to know</h2>
+    <ul class="ticks">
+      <li>Build logs aren’t shown — open the deployment on Vercel for those.</li>
+      <li>Branch and commit details appear for projects connected to GitHub.</li>
+      <li>The picker lists up to 100 projects.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Vercel FAQ</h2>
+    <details>
+      <summary>Does ShipBoard see my team projects?</summary>
+      <p>Yes. With a Full Account token it lists your personal projects and every team you belong to.</p>
+    </details>
+    <details>
+      <summary>Can the token be read-only?</summary>
+      <p>Vercel doesn’t offer read-only tokens. ShipBoard only sends GET requests, and the token never leaves your Mac except to talk to Vercel.</p>
+    </details>
+    <details>
+      <summary>Can I watch preview deployments?</summary>
+      <p>Yes. Pick Production, Preview or any custom environment for each project.</p>
+    </details>
+    <details>
+      <summary>Will it tell me when a build fails?</summary>
+      <p>Yes. macOS shows a native notification when a deployment goes from building to failed, and optionally when it succeeds. You can turn each one off in Settings.</p>
+    </details>
+    <details>
+      <summary>How often does ShipBoard check Vercel?</summary>
+      <p>Every 30 seconds by default; you can choose anything from 15 seconds to 5 minutes in Settings. Each check makes one read-only request per environment you watch, and if Vercel can’t be reached ShipBoard retries every 15 seconds until it’s back.</p>
+    </details>
+    <details>
+      <summary>What happens when my token expires?</summary>
+      <p>The Vercel group on the board shows “Your Vercel token is invalid or expired.” Use <b>Set Vercel token</b> on that row to paste a new one, and the deployments refresh straight away.</p>
+    </details>
+  </section>
+
+  <aside class="also">
+    <h2>One board for every pipeline</h2>
+    <p>The same menu-bar board can also watch <a href="/codepipeline/">AWS CodePipeline</a>, <a href="/github-actions/">GitHub Actions</a>, <a href="/gitlab-ci/">GitLab CI</a>, <a href="/netlify/">Netlify</a>. <a href="/">See how ShipBoard works</a>.</p>
+  </aside>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

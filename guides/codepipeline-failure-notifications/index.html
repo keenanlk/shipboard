@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to get notified when AWS CodePipeline fails</title>
+<meta name="description" content="Three ways to hear about failed AWS CodePipeline runs: notification rules to SNS or chat, an EventBridge rule, or a desktop alert on your Mac." />
+<link rel="canonical" href="https://shipboardapp.com/guides/codepipeline-failure-notifications/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="How to get notified when AWS CodePipeline fails" />
+<meta property="og:description" content="Three ways to hear about failed AWS CodePipeline runs: notification rules to SNS or chat, an EventBridge rule, or a desktop alert on your Mac." />
+<meta property="og:url" content="https://shipboardapp.com/guides/codepipeline-failure-notifications/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How to get notified when AWS CodePipeline fails" />
+<meta name="twitter:description" content="Three ways to hear about failed AWS CodePipeline runs: notification rules to SNS or chat, an EventBridge rule, or a desktop alert on your Mac." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://shipboardapp.com/guides/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to get notified when AWS CodePipeline fails",
+          "item": "https://shipboardapp.com/guides/codepipeline-failure-notifications/"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://shipboardapp.com/guides/codepipeline-failure-notifications/#article",
+      "headline": "How to get notified when AWS CodePipeline fails",
+      "description": "Three ways to hear about failed AWS CodePipeline runs: notification rules to SNS or chat, an EventBridge rule, or a desktop alert on your Mac.",
+      "datePublished": "2026-09-23",
+      "dateModified": "2026-09-23",
+      "image": "https://shipboardapp.com/og-image.jpg",
+      "author": {
+        "@id": "https://shipboardapp.com/#keenan"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      },
+      "mainEntityOfPage": "https://shipboardapp.com/guides/codepipeline-failure-notifications/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> <a href="/guides/">Guides</a> <span>/</span> How to get notified when AWS CodePipeline fails</nav>
+  <div class="page-head">
+    <div class="eyebrow">Guide · AWS CodePipeline</div>
+    <h1>How to get notified when AWS CodePipeline fails</h1>
+    <p class="lede">CodePipeline doesn’t tell anyone when a run fails — you have to set that up. Here are the three practical ways to do it, what each one is good for, and the exact event names and policies you need.</p>
+    <p class="meta">By <a href="/#maker">Keenan Kaufman</a> · September 23, 2026</p>
+  </div>
+
+  <section>
+    <h2>The short version</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Option</th><th>Alerts go to</th><th>Best for</th><th>Changes in AWS</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Notification rule</th><td>Email or SMS through SNS, or Slack and Microsoft Teams</td><td>Telling the whole team</td><td>A rule plus an SNS topic or chat client</td></tr>
+        <tr><th scope="row">EventBridge rule</th><td>SNS, Lambda, or any EventBridge target</td><td>Custom routing and automation</td><td>A rule, a target and a topic policy</td></tr>
+        <tr><th scope="row">A menu-bar app on your Mac</th><td>A native macOS notification</td><td>Knowing yourself, within seconds, without inbox noise</td><td>None — read-only IAM</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Option 1: a notification rule (console, a few clicks)</h2>
+    <p>Notification rules are built into the AWS Developer Tools console; the API is still called CodeStar Notifications. A rule can post to an Amazon SNS topic — which can email or text people — or to Slack and Microsoft Teams through Amazon Q Developer in chat applications (formerly AWS Chatbot).</p>
+    <ol class="steps">
+      <li>Open the pipeline in the CodePipeline console and choose <b>Notify → Create notification rule</b>.</li>
+      <li>Name the rule and choose <b>Full</b> as the detail type, so the message includes the error.</li>
+      <li>Under <b>Events that trigger notifications</b>, tick <b>Pipeline execution → Failed</b> (event ID <code>codepipeline-pipeline-pipeline-execution-failed</code>). Stage- and action-level <b>Failed</b> events exist too if you want more detail.</li>
+      <li>Choose a target: an SNS topic (you can create one here; its name starts with <code>codestar-notifications-</code>) or a Slack or Teams client you’ve already set up in Amazon Q Developer.</li>
+      <li>Submit, then subscribe your email address to the SNS topic and confirm the subscription. Nothing arrives until someone is subscribed.</li>
+    </ol>
+    <p>The same rule from the AWS CLI:</p>
+    <pre><code>aws codestar-notifications create-notification-rule \
+  --name my-pipeline-failed \
+  --resource arn:aws:codepipeline:us-east-1:111122223333:my-pipeline \
+  --event-type-ids codepipeline-pipeline-pipeline-execution-failed \
+  --detail-type FULL \
+  --targets TargetType=SNS,TargetAddress=arn:aws:sns:us-east-1:111122223333:codestar-notifications-my-pipeline</code></pre>
+    <p>If you reuse an existing SNS topic, its access policy must let the notifications service publish to it:</p>
+    <pre><code>{
+  "Sid": "AWSCodeStarNotifications_publish",
+  "Effect": "Allow",
+  "Principal": { "Service": ["codestar-notifications.amazonaws.com"] },
+  "Action": "SNS:Publish",
+  "Resource": "arn:aws:sns:us-east-1:111122223333:my-topic"
+}</code></pre>
+    <p>Good to know: the rule must be in the same Region as the pipeline, one rule can have up to 10 targets, and creating rules needs <code>codestar-notifications</code> permissions — the <code>AWSCodePipeline_FullAccess</code> managed policy includes them; the read-only policy doesn’t.</p>
+  </section>
+
+  <section>
+    <h2>Option 2: an EventBridge rule (for custom routing)</h2>
+    <p>CodePipeline sends every state change to Amazon EventBridge. A rule that matches failed pipeline executions can fan out to SNS, a Lambda function, or any other target. Save this pattern as <code>pattern.json</code>:</p>
+    <pre><code>{
+  "source": ["aws.codepipeline"],
+  "detail-type": ["CodePipeline Pipeline Execution State Change"],
+  "detail": {
+    "state": ["FAILED"],
+    "pipeline": ["my-pipeline"]
+  }
+}</code></pre>
+    <p>Drop the <code>pipeline</code> filter to catch failures from every pipeline in the Region. Then create the rule and point it at a topic:</p>
+    <pre><code>aws events put-rule --name pipeline-failed --event-pattern file://pattern.json
+aws events put-targets --rule pipeline-failed \
+  --targets Id=1,Arn=arn:aws:sns:us-east-1:111122223333:my-topic</code></pre>
+    <p>The topic policy must allow <code>events.amazonaws.com</code> to call <code>sns:Publish</code>. A pipeline’s <code>state</code> can be <code>STARTED</code>, <code>SUCCEEDED</code>, <code>FAILED</code>, <code>CANCELED</code>, <code>STOPPED</code>, <code>STOPPING</code>, <code>SUPERSEDED</code> or <code>RESUMED</code>. Stage and action changes arrive with their own detail types: <code>CodePipeline Stage Execution State Change</code> and <code>CodePipeline Action Execution State Change</code>.</p>
+  </section>
+
+  <section>
+    <h2>Option 3: a desktop notification on your Mac</h2>
+    <p>Emails get filtered and Slack channels get muted. If what you actually want is to <em>see</em> a failure within seconds of it happening while you work, a menu-bar app is the shortest path, and it needs no changes in AWS at all.</p>
+    <p><a href="/codepipeline/">ShipBoard</a> reads your existing <code>~/.aws</code> profiles with three read-only permissions (<code>codepipeline:ListPipelines</code>, <code>GetPipeline</code> and <code>GetPipelineState</code>), shows each pipeline’s stages in the menu bar, and posts a native macOS notification when a run goes from running to failed. It’s free.</p>
+    <p>The trade-off: it only alerts you, and only while your Mac is on. Many teams use both — a notification rule for the shared channel, and a menu-bar app for the person who’s shipping.</p>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <ul class="ticks">
+      <li><a href="https://docs.aws.amazon.com/dtconsole/latest/userguide/concepts.html">AWS: notification concepts and event types</a></li>
+      <li><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/notification-rule-create.html">AWS: create a notification rule for a pipeline</a></li>
+      <li><a href="https://docs.aws.amazon.com/dtconsole/latest/userguide/set-up-sns.html">AWS: configure an SNS topic for notifications</a></li>
+      <li><a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html">AWS: monitoring CodePipeline events with EventBridge</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# ShipBoard
+
+> ShipBoard is a free macOS menu-bar app (macOS 14+, Apple Silicon and Intel) that shows the status of AWS CodePipeline, GitHub Actions, GitLab CI, Vercel and Netlify pipelines on one board and sends a native macOS notification when a run fails. It has no backend: AWS access uses local ~/.aws profiles and provider tokens stay in the macOS Keychain. Made by Keenan Kaufman.
+
+## Product
+- [Home](https://shipboardapp.com/): what ShipBoard does, setup, permissions and FAQ
+- [Download](https://shipboardapp.com/download.html): the latest signed and notarized build (v1.1.1)
+- [Privacy policy](https://shipboardapp.com/privacy.html): the app collects nothing
+- [Compare](https://shipboardapp.com/compare/): ShipBoard vs CCMenu, CatLight, ActionBar, Deploy Status, GitLabBar and Pipedash
+
+## Providers
+- [AWS CodePipeline](https://shipboardapp.com/codepipeline/): Watch AWS CodePipeline stages from the macOS menu bar. Uses your ~/.aws profiles (SSO or keys), read-only IAM, native failure alerts. Free.
+- [GitHub Actions](https://shipboardapp.com/github-actions/): See GitHub Actions workflow runs from the macOS menu bar, job by job, with a native alert when a run fails. Read-only fine-grained token. Free.
+- [GitLab CI](https://shipboardapp.com/gitlab-ci/): Watch GitLab CI pipelines per branch from the macOS menu bar, stage by stage, with native failure alerts. Needs only a read_api token. Free.
+- [Vercel](https://shipboardapp.com/vercel/): Track Vercel production, preview and custom-environment deployments from the macOS menu bar, with a native alert when a build fails. Free.
+- [Netlify](https://shipboardapp.com/netlify/): Track Netlify production, deploy-preview and branch deploys from the macOS menu bar, with a native alert when a deploy fails. Free.
+
+## Guides
+- [How to get notified when AWS CodePipeline fails](https://shipboardapp.com/guides/codepipeline-failure-notifications/): Three ways to hear about failed AWS CodePipeline runs: notification rules to SNS or chat, an EventBridge rule, or a desktop alert on your Mac.
+- [Mac desktop alerts for failed GitHub Actions workflows](https://shipboardapp.com/guides/github-actions-failure-notifications-mac/): Get a macOS notification when a GitHub Actions workflow fails: GitHub's own notification settings, their limits, and a menu-bar option.

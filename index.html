@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ShipBoard — CI/CD pipeline status in your Mac menu bar</title>
-<meta name="description" content="ShipBoard is a free macOS menu-bar app that monitors AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify pipelines in one place — green when it ships, red the moment it doesn't." />
+<meta name="description" content="Free macOS menu-bar app for AWS CodePipeline, GitHub Actions, GitLab CI, Vercel and Netlify status. Green when it ships, red when it doesn't." />
 <link rel="canonical" href="https://shipboardapp.com/" />
 <meta name="theme-color" content="#0a0e13" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
@@ -15,11 +15,13 @@
 <meta property="og:title" content="ShipBoard — CI/CD pipeline status in your Mac menu bar" />
 <meta property="og:description" content="Monitor AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify from the macOS menu bar. Free." />
 <meta property="og:url" content="https://shipboardapp.com/" />
-<meta property="og:image" content="https://shipboardapp.com/og-image.png" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="ShipBoard — CI/CD pipeline status in your Mac menu bar" />
 <meta name="twitter:description" content="Monitor AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify from the macOS menu bar. Free." />
-<meta name="twitter:image" content="https://shipboardapp.com/og-image.png" />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
@@ -30,9 +32,9 @@
   gtag('config', 'G-GQFLDGN7BC');
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
 
 <style>
   :root{
@@ -201,6 +203,8 @@
   .card.wide{grid-column:span 2}
   .card .mono{font-family:var(--mono);color:var(--ink);background:rgba(255,255,255,.04);
     padding:1px 6px;border-radius:5px;font-size:.85em}
+  .card .more{display:inline-block;margin-top:12px;color:var(--go);font-size:15px;font-weight:600}
+  .card .more:hover{text-decoration:underline}
 
   /* ---------- closing band ---------- */
   .closer{margin:30px 0 70px;border:1px solid var(--line);border-radius:24px;overflow:hidden;
@@ -211,6 +215,51 @@
   .closer h2{font-size:clamp(32px,4.6vw,54px)}
   .closer p{color:var(--ink-dim);margin:14px auto 0;max-width:30em;font-size:18px}
   .closer .cta-row{justify-content:center}
+
+  /* ---------- what / see it / setup / permissions / faq ---------- */
+  .what p{color:var(--ink-dim);font-size:18px;max-width:44em;margin-top:14px}
+  .what b{color:var(--ink);font-weight:600}
+  .what .mono,.faq code,.perm code{font-family:var(--mono);font-size:.85em;color:var(--ink);
+    background:rgba(255,255,255,.04);padding:1px 5px;border-radius:5px}
+  .sec-head p a,.perm a,.faq a{color:var(--go)}
+  .sec-head p a:hover,.perm a:hover,.faq a:hover{text-decoration:underline}
+  .media{margin-top:36px;max-width:510px}
+  .media figure{margin:0}
+  .media img,.media video{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--line);background:var(--panel)}
+  .media figcaption{font-size:14px;color:var(--ink-faint);margin-top:8px}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;counter-reset:step}
+  .steps3 li{list-style:none;border:1px solid var(--line);border-radius:16px;padding:22px;counter-increment:step}
+  .steps3 li::before{content:counter(step);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+    background:var(--go-dim);color:var(--go);font-family:var(--mono);font-weight:700;margin-bottom:12px}
+  .steps3 h3{font-family:var(--display);font-weight:700;font-size:19px}
+  .steps3 p{color:var(--ink-dim);font-size:15.5px;margin-top:6px}
+  .perm-wrap{overflow-x:auto;margin-top:30px}
+  .perm{width:100%;border-collapse:collapse;font-size:15.5px}
+  .perm th,.perm td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line)}
+  .perm thead th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+  .perm tbody th{color:var(--ink);font-weight:600;white-space:nowrap}
+  .perm td{color:var(--ink-dim)}
+  .faq{max-width:52em}
+  .faq h2{margin-bottom:10px}
+  .faq details{border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:12px;background:rgba(255,255,255,.015)}
+  .faq summary{cursor:pointer;font-weight:600;color:var(--ink)}
+  .faq details p{color:var(--ink-dim);margin-top:10px}
+  @media (max-width:880px){.steps3{grid-template-columns:1fr}}
+
+  /* ---------- maker ---------- */
+  .maker{padding-block:24px 40px}
+  .maker-card{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;
+    border:1px solid var(--line);border-radius:20px;padding:32px;background:rgba(255,255,255,.015)}
+  .maker-mark{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;
+    background:var(--go-dim);color:var(--go);border:1px solid rgba(55,208,126,.25);
+    font-family:var(--display);font-weight:800;font-size:24px}
+  .maker-card h2{font-size:clamp(24px,3vw,32px);margin-top:10px}
+  .maker-card p{color:var(--ink-dim);margin-top:12px;max-width:40em}
+  .maker-card a{color:var(--go)}
+  .maker-card a:hover{text-decoration:underline}
+  .maker-card .mono{font-family:var(--mono);color:var(--ink);background:rgba(255,255,255,.04);
+    padding:1px 6px;border-radius:5px;font-size:.85em}
+  @media (max-width:560px){.maker-card{grid-template-columns:1fr;padding:22px}}
 
   /* ---------- footer ---------- */
   footer{border-top:1px solid var(--line-2);padding:40px 0;color:var(--ink-faint);font-size:14px}
@@ -242,14 +291,47 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "ShipBoard",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "macOS 14+",
-  "description": "A free macOS menu-bar app that monitors AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify pipeline status.",
-  "url": "https://shipboardapp.com/",
-  "downloadUrl": "https://github.com/keenanlk/shipboard/releases/latest",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": ["https://github.com/keenanlk"]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png",
+      "founder": { "@id": "https://shipboardapp.com/#keenan" },
+      "sameAs": ["https://github.com/keenanlk/shipboard"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://shipboardapp.com/#website",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "publisher": { "@id": "https://shipboardapp.com/#organization" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://shipboardapp.com/#app",
+      "name": "ShipBoard",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS",
+      "softwareRequirements": "macOS 14.0 or later (Apple Silicon or Intel)",
+      "description": "A free macOS menu-bar app that monitors AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify pipeline status.",
+      "url": "https://shipboardapp.com/",
+      "downloadUrl": "https://github.com/keenanlk/shipboard/releases/latest",
+      "softwareVersion": "1.1.1",
+      "fileSize": "6.6 MB",
+      "author": { "@id": "https://shipboardapp.com/#keenan" },
+      "publisher": { "@id": "https://shipboardapp.com/#organization" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+  ]
 }
 </script>
 </head>
@@ -267,31 +349,33 @@
 
 <nav>
   <div class="wrap nav-in">
-    <a class="brand" href="#"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#providers">Providers</a>
+      <a href="/compare/">Compare</a>
       <a href="https://github.com/keenanlk/shipboard">GitHub</a>
       <a class="btn btn-primary" href="download.html">Download</a>
     </div>
   </div>
 </nav>
 
+<main>
 <header class="wrap hero">
   <div>
     <span class="eyebrow reveal" style="animation-delay:.05s"><span class="dot"></span> Free macOS menu-bar app</span>
-    <h1 class="reveal" style="animation-delay:.12s">Every pipeline,<br><span class="em">one glance.</span></h1>
-    <p class="lede reveal" style="animation-delay:.2s">ShipBoard keeps <b>AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify</b> on a single status board in your menu bar — green when it ships, red the moment it doesn't. No dashboards, no tab-switching.</p>
+    <h1>Every CI/CD pipeline,<br><span class="em">in your menu bar.</span></h1>
+    <p class="lede">ShipBoard keeps <b>AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, and Netlify</b> on a single status board in your menu bar — green when it ships, red the moment it doesn't. No dashboards, no tab-switching.</p>
     <div class="cta-row reveal" style="animation-delay:.28s">
       <a class="btn btn-primary" href="download.html">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg>
         Download for macOS
       </a>
-      <a class="btn btn-ghost" href="https://github.com/keenanlk/shipboard">
-        <svg width="17" height="17"><use href="#logo-github"/></svg> View on GitHub
+      <a class="btn btn-ghost" href="https://github.com/keenanlk/shipboard/releases">
+        <svg width="17" height="17"><use href="#logo-github"/></svg> Releases &amp; issues on GitHub
       </a>
     </div>
-    <p class="meta reveal" style="animation-delay:.34s"><span>Free</span> · macOS 14+ · Apple&nbsp;Silicon&nbsp;&amp;&nbsp;Intel · Notarized · Auto-updates</p>
+    <p class="meta reveal" style="animation-delay:.34s"><span>Free</span> · macOS 14+ · Apple&nbsp;Silicon&nbsp;&amp;&nbsp;Intel · Notarized · Automatic update checks</p>
   </div>
 
   <!-- app popover recreation -->
@@ -299,7 +383,7 @@
     <div class="board-head">
       <svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg>
       <span class="nm">ShipBoard</span>
-      <span class="ver">v1.0.0</span>
+      <span class="ver">v1.1.1</span>
       <span class="spacer"></span>
       <svg class="hicon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/></svg>
       <svg class="hicon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
@@ -364,12 +448,19 @@
 <section id="providers" class="providers wrap">
   <div class="kicker">Five providers · one board</div>
   <div class="plist">
-    <span class="pchip aws"><svg><use href="#logo-aws"/></svg><span class="lbl">AWS <small>CodePipeline</small></span></span>
-    <span class="pchip"><svg><use href="#logo-github"/></svg><span class="lbl">GitHub <small>Actions</small></span></span>
-    <span class="pchip"><svg><use href="#logo-gitlab"/></svg><span class="lbl">GitLab <small>CI</small></span></span>
-    <span class="pchip"><svg><use href="#logo-vercel"/></svg><span class="lbl">Vercel</span></span>
-    <span class="pchip"><svg><use href="#logo-netlify"/></svg><span class="lbl">Netlify</span></span>
+    <a class="pchip aws" href="/codepipeline/"><svg><use href="#logo-aws"/></svg><span class="lbl">AWS <small>CodePipeline</small></span></a>
+    <a class="pchip" href="/github-actions/"><svg><use href="#logo-github"/></svg><span class="lbl">GitHub <small>Actions</small></span></a>
+    <a class="pchip" href="/gitlab-ci/"><svg><use href="#logo-gitlab"/></svg><span class="lbl">GitLab <small>CI</small></span></a>
+    <a class="pchip" href="/vercel/"><svg><use href="#logo-vercel"/></svg><span class="lbl">Vercel</span></a>
+    <a class="pchip" href="/netlify/"><svg><use href="#logo-netlify"/></svg><span class="lbl">Netlify</span></a>
   </div>
+</section>
+
+<section id="what" class="wrap what">
+  <div class="sec-tag">What is ShipBoard?</div>
+  <h2>A status board for every pipeline you ship through.</h2>
+  <p><b>ShipBoard is a free macOS menu-bar app that shows the status of your CI/CD pipelines and deployments in one place.</b> It connects directly to AWS CodePipeline, GitHub Actions, GitLab CI, Vercel and Netlify, checks them on an interval you choose (every 15 seconds to 5 minutes), and colours each pipeline green, amber or red. When a run fails, macOS shows a native notification, so you find out without keeping dashboards open.</p>
+  <p>ShipBoard is a native Swift app for macOS 14 or later on Apple Silicon and Intel Macs. It’s under 7 MB, signed and notarized by Apple, and keeps itself up to date. There are no servers and no account: AWS access comes from the profiles already in your <span class="mono">~/.aws</span> folder, and provider tokens stay in the macOS Keychain.</p>
 </section>
 
 <section id="features" class="wrap">
@@ -388,24 +479,113 @@
     <div class="card">
       <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
       <h3>Live status at a glance</h3>
-      <p>Every stage shows green, amber, or red in real time, and the menu-bar icon flags a failure the second it happens.</p>
+      <p>Every stage shows green, amber, or red on every check — expand a pipeline to see each job or action, and the error when one fails.</p>
     </div>
     <div class="card">
       <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
       <h3>Notified the moment it breaks</h3>
-      <p>Native macOS notifications when a pipeline fails — or recovers. Toggle success and failure pings separately.</p>
+      <p>Native macOS notifications when a pipeline fails — or succeeds. Toggle success and failure pings separately.</p>
     </div>
     <div class="card wide">
       <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
       <h3>Your credentials never leave your Mac</h3>
       <p>AWS uses your local <span class="mono">~/.aws</span> profiles, read-only — SSO or access keys, your choice. Provider tokens are stored in the macOS <b>Keychain</b> and verified before they're saved. ShipBoard talks only to the providers themselves; nothing is sent anywhere else.</p>
+      <a class="more" href="privacy.html">Read the privacy policy →</a>
     </div>
     <div class="card">
       <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3m0 12v3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M3 12h3m12 0h3"/></svg></div>
       <h3>Set your own pace</h3>
-      <p>Pick a refresh interval from 15&nbsp;seconds to 5&nbsp;minutes — and it polls faster while something's failing.</p>
+      <p>Pick a refresh interval from 15&nbsp;seconds to 5&nbsp;minutes. If a provider can't be reached, ShipBoard retries every 15&nbsp;seconds until it's back.</p>
     </div>
   </div>
+</section>
+
+<section id="see-it" class="wrap">
+  <div class="sec-head">
+    <div class="sec-tag">See it</div>
+    <h2>The whole app fits in one popover.</h2>
+    <p>Click the menu-bar icon to see every pipeline. When one breaks, you get a notification.</p>
+  </div>
+  <div class="media">
+    <figure>
+      <video id="demo-video" src="/shipboard-demo.mp4" width="510" height="480" muted loop playsinline controls preload="none"
+             aria-label="ShipBoard in the menu bar: a pipeline fails and a native macOS notification appears"></video>
+      <figcaption>A pipeline fails; a native macOS notification fires.</figcaption>
+    </figure>
+  </div>
+</section>
+<script>
+(function () {
+  var video = document.getElementById('demo-video');
+  if (!video || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        video.play().catch(function () {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.5 });
+  io.observe(video);
+})();
+</script>
+
+<section id="setup" class="wrap">
+  <div class="sec-head">
+    <div class="sec-tag">Setup</div>
+    <h2>Running in about a minute.</h2>
+  </div>
+  <ol class="steps3">
+    <li><h3>Install</h3><p>Download the .dmg, drag ShipBoard to Applications and open it. It’s signed and notarized, so there are no Gatekeeper warnings.</p></li>
+    <li><h3>Connect</h3><p>Pick an AWS profile you already use, or paste a read-only token for GitHub, GitLab, Vercel or Netlify. Tokens are checked before they’re saved to your Keychain.</p></li>
+    <li><h3>Choose</h3><p>Tick the pipelines, workflows, branches or environments you care about. They appear on the board right away.</p></li>
+  </ol>
+</section>
+
+<section id="permissions" class="wrap">
+  <div class="sec-head">
+    <div class="sec-tag">Permissions</div>
+    <h2>Exactly what ShipBoard can see.</h2>
+    <p>ShipBoard only reads. Every request goes straight from your Mac to the provider — there’s no ShipBoard server in between. <a href="privacy.html">Read the privacy policy</a>.</p>
+  </div>
+  <div class="perm-wrap"><table class="perm">
+    <thead><tr><th>Provider</th><th>What you give ShipBoard</th><th>Access it needs</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><a href="/codepipeline/">AWS CodePipeline</a></th><td>A profile already in <code>~/.aws</code> (SSO or access key)</td><td><code>codepipeline:ListPipelines</code>, <code>GetPipeline</code> and <code>GetPipelineState</code> — or the <code>AWSCodePipelineReadOnlyAccess</code> policy</td></tr>
+      <tr><th scope="row"><a href="/github-actions/">GitHub Actions</a></th><td>Fine-grained personal access token</td><td>Actions: Read-only and Metadata: Read-only</td></tr>
+      <tr><th scope="row"><a href="/gitlab-ci/">GitLab CI</a></th><td>Personal access token</td><td>The <code>read_api</code> scope</td></tr>
+      <tr><th scope="row"><a href="/vercel/">Vercel</a></th><td>Access token</td><td>Scoped to your account, a team or a project (Vercel has no read-only tokens; ShipBoard only reads)</td></tr>
+      <tr><th scope="row"><a href="/netlify/">Netlify</a></th><td>Personal access token</td><td>Netlify tokens have no scopes; ShipBoard only reads</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="maker" class="wrap maker">
+  <div class="maker-card">
+    <div class="maker-mark" aria-hidden="true">KK</div>
+    <div>
+      <div class="sec-tag">Who makes ShipBoard</div>
+      <h2>Built by a developer who kept missing failed deploys.</h2>
+      <p>I’m Keenan Kaufman. The work I ship goes out through AWS CodePipeline, GitHub Actions, GitLab CI, Vercel and Netlify, and the only way to know whether the last deploy went green was to keep five browser tabs open and refresh them. ShipBoard is the tool I wanted instead: one board in the menu bar, and a notification the moment something breaks.</p>
+      <p>The first version was an Electron app. I rewrote it from scratch in Swift and SwiftUI so it stays small, feels like a real Mac app, and reads <span class="mono">~/.aws</span> and the Keychain directly. It’s free, it has no backend, and I answer issues myself on <a href="https://github.com/keenanlk/shipboard/issues">GitHub</a>.</p>
+      <p><a href="https://github.com/keenanlk">github.com/keenanlk</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="wrap faq">
+  <div class="sec-tag">FAQ</div>
+  <h2>Questions people ask first.</h2>
+  <details><summary>Is ShipBoard really free?</summary><p>Yes. There’s no trial, no account and no subscription.</p></details>
+  <details><summary>Which Macs does it run on?</summary><p>macOS 14 Sonoma or later, on Apple Silicon and Intel. It’s a universal app, signed and notarized by Apple, and under 7 MB.</p></details>
+  <details><summary>Where are my credentials stored?</summary><p>AWS access uses the profiles already in <code>~/.aws</code>, read-only. Tokens for GitHub, GitLab, Vercel and Netlify are stored in the macOS Keychain and are only ever sent to the provider they belong to. See the <a href="privacy.html">privacy policy</a>.</p></details>
+  <details><summary>How often does it check my pipelines?</summary><p>Every 30 seconds by default; you can choose 15 seconds, 30 seconds, or 1, 2 or 5 minutes. If a provider can’t be reached, ShipBoard retries every 15 seconds until it’s back.</p></details>
+  <details><summary>Does it support GitHub Enterprise or self-managed GitLab?</summary><p>Not yet — ShipBoard works with github.com and gitlab.com.</p></details>
+  <details><summary>Is ShipBoard open source?</summary><p>No. The <a href="https://github.com/keenanlk/shipboard">GitHub repository</a> hosts releases and the issue tracker, so that’s where to report bugs and request features.</p></details>
+  <details><summary>How do updates work?</summary><p>ShipBoard checks for updates automatically and asks before installing one. You can also choose <b>Check for Updates…</b> in Settings or from the right-click menu.</p></details>
+  <details><summary>Can it start when I log in?</summary><p>Yes — turn on <b>Launch ShipBoard at login</b> in Settings.</p></details>
 </section>
 
 <section class="wrap">
@@ -421,16 +601,19 @@
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="wrap foot-in">
-    <a class="brand" href="#" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
     <div class="foot-links">
       <a href="download.html">Download</a>
+      <a href="/guides/">Guides</a>
       <a href="https://github.com/keenanlk/shipboard">GitHub</a>
       <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
       <a href="privacy.html">Privacy</a>
     </div>
-    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span></div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
   </div>
 </footer>
 

@@ -19,9 +19,7 @@
   gtag('config', 'G-GQFLDGN7BC');
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fonts.css">
 <style>
   :root{
     --bg:#0a0e13; --ink:#e9eef4; --ink-dim:#9aa6b4; --ink-faint:#5d6b7a;
@@ -53,6 +51,12 @@
   .home{margin-top:30px;font-size:14px}
   .home a{color:var(--ink-faint);text-decoration:none}
   .home a:hover{color:var(--ink-dim)}
+  .only-other{display:none}
+  body.not-mac .only-mac{display:none}
+  body.not-mac .only-other{display:block}
+  #copy-link{font:inherit;font-weight:600;font-size:16px;color:#04130b;background:var(--go);
+    border:0;border-radius:10px;padding:10px 16px;cursor:pointer}
+  .only-other code{font-family:ui-monospace,monospace;color:var(--ink)}
   @media (prefers-reduced-motion:reduce){.spinner{animation:none}}
 </style>
 </head>
@@ -64,13 +68,18 @@
       <span>ShipBoard</span>
     </div>
 
-    <div class="spinner" aria-hidden="true"></div>
-    <h1>Your download is starting…</h1>
-    <p>ShipBoard for macOS should begin downloading automatically.</p>
+    <div class="spinner only-mac" aria-hidden="true"></div>
+    <h1 id="headline">Your download is starting…</h1>
+    <p class="only-mac">ShipBoard for macOS should begin downloading automatically.</p>
 
-    <p class="manual">Didn't start? <a id="dl" href="https://github.com/keenanlk/shipboard/releases/latest">Download it manually</a>.</p>
+    <p class="manual only-mac">Didn't start? <a id="dl" href="https://github.com/keenanlk/shipboard/releases/latest">Download it manually</a>.</p>
 
-    <div class="steps">
+    <div class="only-other">
+      <p>ShipBoard is a menu-bar app for Macs running macOS 14 or later. Open <code>shipboardapp.com/download.html</code> on your Mac to get it.</p>
+      <p class="manual"><button id="copy-link" type="button">Copy download link</button> <span id="copied" hidden>Copied.</span></p>
+    </div>
+
+    <div class="steps only-mac">
       <b>Next:</b> open the downloaded <b>.dmg</b> → drag <b>ShipBoard</b> to Applications → launch it.<br>
       It's signed &amp; notarized by Apple, so it opens with no Gatekeeper warnings.
     </div>
@@ -78,52 +87,6 @@
     <div class="home"><a href="/">← Back to shipboardapp.com</a></div>
   </div>
 
-  <script>
-    // Ask GitHub for the latest release's .dmg and download whatever it's named.
-    // Resilient to version-bumps and asset-name changes; falls back to the
-    // releases page (the manual link) if the API is unavailable.
-    (function () {
-      var manual = document.getElementById('dl'); // -> /releases/latest (always works)
-      fetch('https://api.github.com/repos/keenanlk/shipboard/releases/latest', {
-        headers: { 'Accept': 'application/vnd.github+json' }
-      })
-        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function (d) {
-          var dmg = (d.assets || []).filter(function (a) {
-            return /\.dmg$/i.test(a.name);
-          })[0];
-          if (dmg && dmg.browser_download_url) {
-            manual.href = dmg.browser_download_url; // upgrade fallback to the direct file
-            // The download starts from script, not a click, so GA's automatic
-            // file_download tracking never sees it. Report it by hand, under the same
-            // event name, so it counts alongside real .dmg link clicks. Beacon transport
-            // lets the hit survive the navigation that follows.
-            track(dmg.browser_download_url, dmg.name, 'auto', d.tag_name);
-            setTimeout(function () { window.location.href = dmg.browser_download_url; }, 600);
-          }
-        })
-        .catch(function () { /* leave the manual link pointing at the releases page */ });
-
-      // If the API was unreachable, the manual link still points at the releases page,
-      // which GA would not count as a download. (Once upgraded to the .dmg above, GA's
-      // own tracking counts a click on it, so this only fires for the fallback.)
-      manual.addEventListener('click', function () {
-        if (!/\.dmg$/i.test(manual.href)) track(manual.href, 'releases page', 'fallback', null);
-      });
-
-      function track(url, name, method, version) {
-        if (typeof gtag !== 'function') return;
-        gtag('event', 'file_download', {
-          file_extension: 'dmg',
-          file_name: name,
-          link_url: url,
-          link_text: 'ShipBoard download',
-          method: method,
-          app_version: version || undefined,
-          transport_type: 'beacon'
-        });
-      }
-    })();
-  </script>
+  <script src="/assets/download.js"></script>
 </body>
 </html>

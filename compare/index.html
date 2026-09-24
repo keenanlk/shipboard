@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShipBoard vs CCMenu, CatLight and other CI menu-bar apps</title>
+<meta name="description" content="How ShipBoard compares with CCMenu, CatLight, ActionBar, Deploy Status, GitLabBar and Pipedash for watching CI/CD from a Mac. Sources dated." />
+<link rel="canonical" href="https://shipboardapp.com/compare/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="ShipBoard vs CCMenu, CatLight and other CI menu-bar apps" />
+<meta property="og:description" content="How ShipBoard compares with CCMenu, CatLight, ActionBar, Deploy Status, GitLabBar and Pipedash for watching CI/CD from a Mac. Sources dated." />
+<meta property="og:url" content="https://shipboardapp.com/compare/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ShipBoard vs CCMenu, CatLight and other CI menu-bar apps" />
+<meta name="twitter:description" content="How ShipBoard compares with CCMenu, CatLight, ActionBar, Deploy Status, GitLabBar and Pipedash for watching CI/CD from a Mac. Sources dated." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Compare",
+          "item": "https://shipboardapp.com/compare/"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://shipboardapp.com/compare/#webpage",
+      "url": "https://shipboardapp.com/compare/",
+      "name": "ShipBoard vs CCMenu, CatLight and other CI menu-bar apps",
+      "about": {
+        "@id": "https://shipboardapp.com/#app"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> Compare</nav>
+  <div class="page-head">
+    <div class="eyebrow">Compare</div>
+    <h1>ShipBoard vs other CI/CD menu-bar apps</h1>
+    <p class="lede">There are good tools for watching builds from a Mac. Most cover one provider, or one family of CI servers. Here’s how ShipBoard compares, with sources, so you can pick the right one — even if it isn’t ShipBoard.</p>
+    <p class="meta">Checked September 23, 2026 against each product’s own site, App Store listing or repository.</p>
+  </div>
+
+  <section>
+    <h2>At a glance</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>App</th><th>Watches</th><th>AWS CodePipeline</th><th>Runs as</th><th>Price</th><th>Failure alerts</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">ShipBoard</th><td>AWS CodePipeline, GitHub Actions, GitLab CI, Vercel, Netlify</td><td>Yes</td><td>macOS 14+ menu bar</td><td>Free</td><td>Yes</td></tr>
+        <tr><th scope="row"><a href="https://ccmenu.org/">CCMenu</a></th><td>GitHub Actions, GitLab pipelines, any cctray feed (Jenkins, TeamCity, GoCD, CircleCI…)</td><td>No</td><td>macOS menu bar</td><td>Free, open source (Apache-2.0)</td><td>Yes</td></tr>
+        <tr><th scope="row"><a href="https://catlight.io/">CatLight</a></th><td>Azure DevOps, GitHub, GitLab, Jenkins, TeamCity, AppVeyor, Travis CI, Jira</td><td>No</td><td>Tray app + dashboard on macOS, Windows, Linux</td><td>Free Community edition (up to 5 builds); paid Pro edition</td><td>Yes</td></tr>
+        <tr><th scope="row"><a href="https://ptrchm.com/actionbar/">ActionBar</a></th><td>GitHub Actions</td><td>No</td><td>macOS 14+ menu bar</td><td>$9.99 one-time (Mac App Store)</td><td>Yes</td></tr>
+        <tr><th scope="row"><a href="https://clemstation.com/deploy-status-for-vercel">Deploy Status</a></th><td>Vercel or Netlify (two separate apps)</td><td>No</td><td>macOS 13+ menu bar</td><td>Free; Pro in-app purchase ($2.99 Vercel, $4.99 Netlify)</td><td>Listed as “coming soon”</td></tr>
+        <tr><th scope="row"><a href="https://github.com/yoanbernabeu/GitLabBar">GitLabBar</a></th><td>GitLab merge requests, pipelines and releases</td><td>No</td><td>macOS menu bar (Electron)</td><td>Free, open source (MIT)</td><td>Yes</td></tr>
+        <tr><th scope="row"><a href="https://github.com/hcavarsan/pipedash">Pipedash</a></th><td>GitHub Actions, GitLab CI, Bitbucket Pipelines, Buildkite, Jenkins, Tekton, Argo CD</td><td>On its roadmap</td><td>Desktop window (macOS, Windows, Linux) and iOS</td><td>Free, open source (GPL-3.0)</td><td>On its roadmap</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>ShipBoard vs CCMenu</h2>
+    <p>CCMenu is the veteran: a free, open-source menu-bar app that reads GitHub Actions, GitLab pipelines and any CI server that publishes a <code>cctray</code> feed, which covers Jenkins, TeamCity, GoCD and CircleCI. If your builds run on those servers, CCMenu is the natural choice.</p>
+    <p>ShipBoard covers what CCMenu doesn’t: AWS CodePipeline stages across profiles and regions, and Vercel and Netlify deployments — on the same board as GitHub and GitLab.</p>
+  </section>
+
+  <section>
+    <h2>ShipBoard vs CatLight</h2>
+    <p>CatLight runs on macOS, Windows and Linux and supports Azure DevOps, Jenkins, TeamCity and more, plus GitHub Enterprise and self-hosted GitLab. It’s the better fit for mixed-OS teams or on-premises CI. Its free Community edition is limited to five builds; beyond that it’s a paid Pro edition.</p>
+    <p>ShipBoard is Mac-only and cloud-only (github.com and gitlab.com), but it’s free without limits, and it covers AWS CodePipeline, Vercel and Netlify, which CatLight doesn’t list.</p>
+  </section>
+
+  <section>
+    <h2>ShipBoard vs ActionBar</h2>
+    <p>ActionBar is a paid ($9.99) Mac App Store app built only for GitHub Actions, using the same read-only token permissions ShipBoard recommends. If GitHub Actions is your only CI and you prefer buying from the App Store, it’s a focused option.</p>
+    <p>ShipBoard is free and puts GitHub Actions next to your other providers, so a failed CodePipeline deploy or Vercel build shows up in the same place.</p>
+  </section>
+
+  <section>
+    <h2>ShipBoard vs Deploy Status</h2>
+    <p>Deploy Status is two separate menu-bar apps — one for Vercel, one for Netlify — with a Pro in-app purchase. As of this check, their App Store listings describe notifications as “coming soon”.</p>
+    <p>ShipBoard watches Vercel and Netlify together, next to your CI pipelines, and sends a native notification when a deploy fails.</p>
+  </section>
+
+  <section>
+    <h2>ShipBoard vs GitLabBar</h2>
+    <p>GitLabBar is a free, open-source GitLab app that also tracks merge requests, mentions and releases, and supports self-hosted GitLab and multiple accounts. For GitLab-heavy workflows beyond pipelines, it does more than ShipBoard. Its last release was in March 2026.</p>
+    <p>ShipBoard is pipelines-only for GitLab (gitlab.com), but covers four other providers and is a native Swift app rather than Electron.</p>
+  </section>
+
+  <section>
+    <h2>ShipBoard vs Pipedash</h2>
+    <p>Pipedash is a free, open-source desktop dashboard for many CI systems — GitHub Actions, GitLab CI, Bitbucket, Buildkite, Jenkins, Tekton and Argo CD — on macOS, Windows, Linux and iOS. It’s a window app rather than a menu-bar app, and build notifications and AWS CodePipeline are on its roadmap.</p>
+    <p>ShipBoard lives in the menu bar, notifies you today, and supports CodePipeline, Vercel and Netlify.</p>
+  </section>
+
+  <section>
+    <h2>Where ShipBoard falls short</h2>
+    <ul class="ticks">
+      <li>macOS only (14 Sonoma or later).</li>
+      <li>github.com and gitlab.com only — no GitHub Enterprise Server or self-managed GitLab yet.</li>
+      <li>One token per provider, so one GitHub, GitLab, Vercel and Netlify account at a time (AWS supports any number of profiles).</li>
+      <li>No Jenkins, CircleCI, Bitbucket, Buildkite or Azure DevOps.</li>
+    </ul>
+    <p>If any of those is a deal-breaker, one of the apps above is probably the better choice. If you ship through AWS, GitHub, GitLab, Vercel or Netlify from a Mac, <a href="/download.html">try ShipBoard</a> — it’s free.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

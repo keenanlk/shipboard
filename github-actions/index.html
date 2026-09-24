@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GitHub Actions status in your Mac menu bar — ShipBoard</title>
+<meta name="description" content="See GitHub Actions workflow runs from the macOS menu bar, job by job, with a native alert when a run fails. Read-only fine-grained token. Free." />
+<link rel="canonical" href="https://shipboardapp.com/github-actions/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="GitHub Actions status in your Mac menu bar — ShipBoard" />
+<meta property="og:description" content="See GitHub Actions workflow runs from the macOS menu bar, job by job, with a native alert when a run fails. Read-only fine-grained token. Free." />
+<meta property="og:url" content="https://shipboardapp.com/github-actions/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="GitHub Actions status in your Mac menu bar — ShipBoard" />
+<meta name="twitter:description" content="See GitHub Actions workflow runs from the macOS menu bar, job by job, with a native alert when a run fails. Read-only fine-grained token. Free." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "GitHub Actions",
+          "item": "https://shipboardapp.com/github-actions/"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://shipboardapp.com/github-actions/#webpage",
+      "url": "https://shipboardapp.com/github-actions/",
+      "name": "GitHub Actions status in your Mac menu bar — ShipBoard",
+      "about": {
+        "@id": "https://shipboardapp.com/#app"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+  <symbol id="logo-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> GitHub Actions</nav>
+  <div class="page-head">
+    <div class="eyebrow"><svg aria-hidden="true"><use href="#logo-github"/></svg> GitHub Actions</div>
+    <h1>GitHub Actions status in your Mac menu bar</h1>
+    <p class="lede">ShipBoard puts your GitHub Actions workflows in the macOS menu bar, job by job, and sends a native notification the moment a run fails — whoever triggered it. It needs only a read-only fine-grained token, stored in your Keychain.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/download.html">Download ShipBoard — Free</a>
+      <span class="meta">macOS 14+ · Apple Silicon &amp; Intel · v1.1.1</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>What you see for each workflow</h2>
+    <ul class="ticks">
+      <li>The latest run of each workflow on the repository’s default branch — or the latest run on any ref for tag, schedule and manual workflows.</li>
+      <li>Each job as a stage, with its steps underneath when you expand the run.</li>
+      <li>The run’s branch and head commit message.</li>
+      <li><b>Open run on GitHub</b> to jump straight to the run page.</li>
+      <li>Green for success; red for failure, timed out or startup failure; amber while queued or running; grey for cancelled or skipped.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Set it up</h2>
+    <ol class="steps">
+      <li>Create a <a href="https://github.com/settings/personal-access-tokens/new">fine-grained personal access token</a>. Under <b>Repository access</b>, choose the repositories to watch; under <b>Permissions</b>, set <b>Actions</b> and <b>Metadata</b> to <b>Read-only</b>.</li>
+      <li>In ShipBoard, click <b>+</b>, choose <b>GitHub</b>, and paste the token. ShipBoard checks it with GitHub before saving it to your Keychain.</li>
+      <li>Search your repositories and tick the workflows you want on the board.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What access ShipBoard needs</h2>
+    <div class="table-scroll"><table>
+      <tr><th scope="row">Credential</th><td>A GitHub personal access token, stored in the macOS Keychain.</td></tr>
+      <tr><th scope="row">Recommended token</th><td>Fine-grained, with <b>Actions: Read-only</b> and <b>Metadata: Read-only</b> on the repositories you choose.</td></tr>
+      <tr><th scope="row">API calls</th><td><code>GET /user</code>, <code>/user/repos</code>, <code>/repos/{owner}/{repo}</code>, <code>…/actions/workflows</code>, <code>…/actions/workflows/{id}/runs</code>, <code>…/actions/runs/{id}/jobs</code></td></tr>
+    </table></div>
+    <p>ShipBoard only reads. It never re-runs, cancels or edits workflows. A classic token with the <code>repo</code> scope also works, but it grants far more than ShipBoard needs.</p>
+  </section>
+
+  <section>
+    <h2>Good to know</h2>
+    <ul class="ticks">
+      <li>github.com only — GitHub Enterprise Server isn’t supported yet.</li>
+      <li>The repository picker lists your 100 most recently pushed, non-archived repositories.</li>
+      <li>One GitHub token (one account) at a time.</li>
+      <li>Each check makes roughly two API calls per workflow. If you watch many workflows at a short interval, choose a longer refresh interval to stay inside GitHub’s hourly API limit.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>GitHub Actions FAQ</h2>
+    <details>
+      <summary>Is a fine-grained token enough?</summary>
+      <p>Yes. ShipBoard only reads Actions data and basic repository metadata, which is exactly what <b>Actions: Read-only</b> and <b>Metadata: Read-only</b> allow.</p>
+    </details>
+    <details>
+      <summary>Does it show private repositories?</summary>
+      <p>Yes — any repository the token can read.</p>
+    </details>
+    <details>
+      <summary>Will I hear about runs someone else started?</summary>
+      <p>Yes. GitHub’s own Actions notifications only cover runs you triggered; ShipBoard watches the workflows you pick, whoever started them.</p>
+    </details>
+    <details>
+      <summary>Can it follow a branch other than the default?</summary>
+      <p>Not yet. It follows the default branch, falling back to the latest run on any ref for workflows that don’t run on branches.</p>
+    </details>
+    <details>
+      <summary>Will it tell me when a run fails?</summary>
+      <p>Yes. macOS shows a native notification when a run goes from running to failed, and optionally when it succeeds. You can turn each one off in Settings.</p>
+    </details>
+  </section>
+
+  <aside class="also">
+    <h2>One board for every pipeline</h2>
+    <p>The same menu-bar board can also watch <a href="/codepipeline/">AWS CodePipeline</a>, <a href="/gitlab-ci/">GitLab CI</a>, <a href="/vercel/">Vercel</a>, <a href="/netlify/">Netlify</a>. <a href="/">See how ShipBoard works</a>.</p>
+  </aside>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
