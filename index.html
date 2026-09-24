@@ -24,12 +24,21 @@
 <meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-GQFLDGN7BC');
+  // Load gtag.js after the page has rendered so it doesn't compete with first paint.
+  // Events sent before then wait in dataLayer and are delivered once it loads.
+  addEventListener('load', function () {
+    setTimeout(function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC';
+      document.head.appendChild(s);
+    }, 1500);
+  });
 </script>
 
 <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -46,7 +55,7 @@
     --line-2:rgba(255,255,255,.05);
     --ink:#e9eef4;
     --ink-dim:#9aa6b4;
-    --ink-faint:#5d6b7a;
+    --ink-faint:#7d8a99;
     --go:#37d07e;          /* operational green */
     --go-dim:rgba(55,208,126,.16);
     --amber:#f3c14b;       /* in-progress */
@@ -240,6 +249,7 @@
   .what .mono,.faq code,.perm code{font-family:var(--mono);font-size:.85em;color:var(--ink);
     background:rgba(255,255,255,.04);padding:1px 5px;border-radius:5px}
   .sec-head p a,.perm a,.faq a{color:var(--go)}
+  p a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
   .sec-head p a:hover,.perm a:hover,.faq a:hover{text-decoration:underline}
   .media{margin-top:36px;max-width:510px}
   .media figure{margin:0}

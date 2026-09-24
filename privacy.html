@@ -21,19 +21,28 @@
 <meta name="twitter:card" content="summary_large_image" />
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-GQFLDGN7BC');
+  // Load gtag.js after the page has rendered so it doesn't compete with first paint.
+  // Events sent before then wait in dataLayer and are delivered once it loads.
+  addEventListener('load', function () {
+    setTimeout(function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC';
+      document.head.appendChild(s);
+    }, 1500);
+  });
 </script>
 
 <link rel="stylesheet" href="/assets/fonts.css">
 <style>
   :root{
     --bg:#0a0e13; --panel:#10161f; --line:rgba(255,255,255,.08);
-    --ink:#e9eef4; --ink-dim:#9aa6b4; --ink-faint:#5d6b7a; --go:#37d07e;
+    --ink:#e9eef4; --ink-dim:#9aa6b4; --ink-faint:#7d8a99; --go:#37d07e;
     --display:'Bricolage Grotesque',sans-serif; --body:'Hanken Grotesk',sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -41,6 +50,7 @@
   body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:radial-gradient(50rem 32rem at 80% -10%,rgba(55,208,126,.08),transparent 60%),var(--bg)}
   a{color:var(--go);text-decoration:none} a:hover{text-decoration:underline}
+  p a,li a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
   .wrap{max-width:760px;margin:0 auto;padding:0 28px}
   nav{border-bottom:1px solid var(--line)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
