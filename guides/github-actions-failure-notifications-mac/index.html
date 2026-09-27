@@ -7,7 +7,9 @@
 <meta name="description" content="Get a macOS notification when a GitHub Actions workflow fails: GitHub&#x27;s own notification settings, their limits, and a menu-bar option." />
 <link rel="canonical" href="https://shipboardapp.com/guides/github-actions-failure-notifications-mac/" />
 <meta name="theme-color" content="#0a0e13" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="article" />
@@ -78,7 +80,7 @@
       "headline": "Mac desktop alerts for failed GitHub Actions workflows",
       "description": "Get a macOS notification when a GitHub Actions workflow fails: GitHub's own notification settings, their limits, and a menu-bar option.",
       "datePublished": "2026-09-23",
-      "dateModified": "2026-09-23",
+      "dateModified": "2026-09-27",
       "image": "https://shipboardapp.com/og-image.jpg",
       "author": {
         "@id": "https://shipboardapp.com/#keenan"
@@ -163,7 +165,7 @@
       <li>Tick the workflows to watch. When a run ShipBoard follows goes from running to failed, you get a native notification with the workflow’s name.</li>
     </ol>
     <p>Two things to know. ShipBoard follows each workflow’s default branch, and it works with github.com only, not GitHub Enterprise Server. Each check makes roughly two API calls per workflow, so if you watch a lot of workflows, a refresh interval of a minute or two keeps you comfortably inside GitHub’s hourly API limit.</p>
-    <p>ShipBoard is free and also covers GitLab CI, AWS CodePipeline, Vercel and Netlify. If GitHub Actions is all you use, a single-purpose app may suit you better — see <a href="/compare/">how the options compare</a>.</p>
+    <p>ShipBoard is free and also covers GitLab CI, AWS CodePipeline, Vercel and Netlify. If GitHub Actions is all you use, a single-purpose app may suit you better — see <a href="/compare/">how the options compare</a>. If you also want to see every repository’s runs in one place, read <a href="/guides/github-actions-dashboard/">a GitHub Actions dashboard for all your repos</a>.</p>
   </section>
 
   <section>
