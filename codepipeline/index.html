@@ -7,7 +7,9 @@
 <meta name="description" content="Watch AWS CodePipeline stages from the macOS menu bar. Uses your ~/.aws profiles (SSO or keys), read-only IAM, native failure alerts. Free." />
 <link rel="canonical" href="https://shipboardapp.com/codepipeline/" />
 <meta name="theme-color" content="#0a0e13" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2337d07e' d='M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z'/%3E%3C/svg%3E" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 <!-- Open Graph / Twitter -->
 <meta property="og:type" content="website" />
@@ -93,6 +95,55 @@
       "name": "ShipBoard",
       "url": "https://shipboardapp.com/",
       "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://shipboardapp.com/codepipeline/#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does ShipBoard need my AWS secret keys?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It resolves your named profile the same way the AWS CLI does. Access keys stay in your credentials file and SSO tokens stay in the CLI’s cache; nothing is copied, and nothing is sent anywhere except to AWS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I watch pipelines in several accounts and regions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Each profile and region pair is its own group on the board, and you can add as many as you like."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens when my SSO session expires?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That group shows an error with a Log in to AWS button, which runs aws sso login for the profile. The pipelines refresh once you’re signed in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it tell me when a pipeline fails?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. macOS shows a native notification when a pipeline goes from running to failed, and optionally when it succeeds. You can turn each one off in Settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can ShipBoard change or re-run my pipelines?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It only calls three read-only APIs, so even a profile with broader permissions is only ever used to read status."
+      }
     }
   ]
 }
