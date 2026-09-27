@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Is GitHub Actions down, or is it your workflow?</title>
+<meta name="description" content="How to tell a GitHub Actions outage from a broken workflow: check GitHub Status, read the signs in the run, and recover the runs an outage dropped." />
+<link rel="canonical" href="https://shipboardapp.com/guides/is-github-actions-down/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="Is GitHub Actions down, or is it your workflow?" />
+<meta property="og:description" content="How to tell a GitHub Actions outage from a broken workflow: check GitHub Status, read the signs in the run, and recover the runs an outage dropped." />
+<meta property="og:url" content="https://shipboardapp.com/guides/is-github-actions-down/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Is GitHub Actions down, or is it your workflow?" />
+<meta name="twitter:description" content="How to tell a GitHub Actions outage from a broken workflow: check GitHub Status, read the signs in the run, and recover the runs an outage dropped." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+  // Load gtag.js after the page has rendered so it doesn't compete with first paint.
+  // Events sent before then wait in dataLayer and are delivered once it loads.
+  addEventListener('load', function () {
+    setTimeout(function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC';
+      document.head.appendChild(s);
+    }, 1500);
+  });
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://shipboardapp.com/guides/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Is GitHub Actions down, or is it your workflow?",
+          "item": "https://shipboardapp.com/guides/is-github-actions-down/"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://shipboardapp.com/guides/is-github-actions-down/#article",
+      "headline": "Is GitHub Actions down, or is it your workflow?",
+      "description": "How to tell a GitHub Actions outage from a broken workflow: check GitHub Status, read the signs in the run, and recover the runs an outage dropped.",
+      "datePublished": "2026-09-27",
+      "dateModified": "2026-09-27",
+      "image": "https://shipboardapp.com/og-image.jpg",
+      "author": {
+        "@id": "https://shipboardapp.com/#keenan"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      },
+      "mainEntityOfPage": "https://shipboardapp.com/guides/is-github-actions-down/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> <a href="/guides/">Guides</a> <span>/</span> Is GitHub Actions down, or is it your workflow?</nav>
+  <div class="page-head">
+    <div class="eyebrow">Guide · GitHub Actions</div>
+    <h1>Is GitHub Actions down, or is it your workflow?</h1>
+    <p class="lede">A run is stuck or failing and nothing in your code changed. Before you start debugging, spend a minute finding out whether GitHub is having a bad day. Here’s how to check, what an outage looks like from inside a run, and what to do once it’s over.</p>
+    <p class="meta">By <a href="/#maker">Keenan Kaufman</a> · September 27, 2026</p>
+  </div>
+
+  <section>
+    <h2>The short version</h2>
+    <ul class="ticks">
+      <li>Check the <b>Actions</b> row on <a href="https://www.githubstatus.com/">githubstatus.com</a>.</li>
+      <li>If it’s green, look at <em>where</em> the run broke. A failure inside your own commands is almost always yours.</li>
+      <li>If it’s an outage, wait for it to clear, then re-run the failed jobs. Runs that never started may need a fresh push.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Step 1: check GitHub Status</h2>
+    <p><a href="https://www.githubstatus.com/">GitHub Status</a> lists each service separately, and <b>Actions</b> has its own row, so a problem with Git operations or Pages doesn’t have to mean your workflows are affected. Open incidents are listed at the top with updates as GitHub investigates.</p>
+    <p>The page is built on Statuspage, which has a public JSON API. This prints the current state of the Actions row:</p>
+    <pre><code>curl -s https://www.githubstatus.com/api/v2/components.json \
+  | jq -r '.components[] | select(.name == "Actions") | .status'</code></pre>
+    <p>You’ll get <code>operational</code>, <code>degraded_performance</code>, <code>partial_outage</code> or <code>major_outage</code>. Status pages are updated by people, so the first minutes of an incident can still read <code>operational</code>. If the page is green but the signs below all point to GitHub, give it a few minutes and check again.</p>
+  </section>
+
+  <section>
+    <h2>Step 2: read the run</h2>
+    <p>Where and how a run fails usually tells you who broke it.</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th scope="col">Probably GitHub</th><th scope="col">Probably your workflow</th></tr></thead>
+      <tbody>
+        <tr><td>Jobs sit in <b>Queued</b> for a long time and never get a runner.</td><td>A step that runs your commands fails with a real error: a test, a build, a lint.</td></tr>
+        <tr><td>A push or pull request doesn’t start a run at all.</td><td>It fails the same way when you re-run it.</td></tr>
+        <tr><td>Steps GitHub provides fail before your code runs: checking out, downloading actions, restoring a cache, uploading an artifact.</td><td>Only one workflow or one branch is affected.</td></tr>
+        <tr><td>Unrelated repositories break at the same moment.</td><td>You recently changed the workflow file, a dependency version or a secret.</td></tr>
+      </tbody>
+    </table></div>
+    <p>One case looks like an outage but isn’t one. GitHub documents that scheduled workflows can start late when load is high, especially at the top of every hour, and that some queued jobs may be dropped then. If your <code>schedule</code> runs are late but everything else is fine, move the cron off minute zero.</p>
+  </section>
+
+  <section>
+    <h2>What happens to runs during an outage</h2>
+    <p>GitHub doesn’t hold runs forever. If Actions is unavailable and a run hasn’t been queued within 30 minutes of being triggered, it’s discarded. A run that was queued but not picked up by a GitHub-hosted runner within 45 minutes is discarded too. So after a long outage, some commits may have no run at all. Nothing will retry them for you.</p>
+  </section>
+
+  <section>
+    <h2>Step 3: recover once it’s over</h2>
+    <ol class="steps">
+      <li>Find the runs that failed while GitHub was down: <code>gh run list --status failure --limit 20</code>.</li>
+      <li>Re-run just the failed jobs, from the run page (<b>Re-run jobs → Re-run failed jobs</b>) or with <code>gh run rerun RUN_ID --failed</code>.</li>
+      <li>For commits that never got a run, start one again. Use <b>Run workflow</b> if the workflow has a <code>workflow_dispatch</code> trigger, or push a new commit.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Spot it faster next time</h2>
+    <p>GitHub Status has a <b>Subscribe to updates</b> button, so incidents can come to you instead of you going to the page.</p>
+    <p>An outage is also easy to spot when you can see all your workflows at once. <a href="/github-actions/">ShipBoard</a> keeps the workflows you pick in the macOS menu bar: amber while queued or running, red for a failure, a timeout or a startup failure. When every repo turns amber and stays there, or several go red at the same moment, it’s GitHub. When one goes red on its own, it’s time to open the logs. It’s free, and there’s a guide to <a href="/guides/github-actions-dashboard/">other ways to see every repo at once</a>.</p>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <ul class="ticks">
+      <li><a href="https://www.githubstatus.com/">GitHub Status</a> and its <a href="https://www.githubstatus.com/api">API</a></li>
+      <li><a href="https://docs.github.com/en/actions/how-tos/troubleshoot-workflows">GitHub Docs: troubleshooting workflows</a></li>
+      <li><a href="https://docs.github.com/en/actions/concepts/runners/github-hosted-runners">GitHub Docs: GitHub-hosted runners (workflow continuity)</a></li>
+      <li><a href="https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs">GitHub Docs: re-running workflows and jobs</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

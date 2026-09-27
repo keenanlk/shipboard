@@ -18,3 +18,5 @@
 ## Guides
 - [How to get notified when AWS CodePipeline fails](https://shipboardapp.com/guides/codepipeline-failure-notifications/): Three ways to hear about failed AWS CodePipeline runs: notification rules to SNS or chat, an EventBridge rule, or a desktop alert on your Mac.
 - [Mac desktop alerts for failed GitHub Actions workflows](https://shipboardapp.com/guides/github-actions-failure-notifications-mac/): Get a macOS notification when a GitHub Actions workflow fails: GitHub's own notification settings, their limits, and a menu-bar option.
+- [A GitHub Actions dashboard for all your repos](https://shipboardapp.com/guides/github-actions-dashboard/): GitHub shows workflow runs one repo at a time. Four ways to see every repo at once: gh run list, Actions metrics, a self-hosted board or a menu-bar app.
+- [Is GitHub Actions down, or is it your workflow?](https://shipboardapp.com/guides/is-github-actions-down/): How to tell a GitHub Actions outage from a broken workflow: check GitHub Status, read the signs in the run, and recover the runs an outage dropped.

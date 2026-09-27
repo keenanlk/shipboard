@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A GitHub Actions dashboard for all your repos</title>
+<meta name="description" content="GitHub shows workflow runs one repo at a time. Four ways to see every repo at once: gh run list, Actions metrics, a self-hosted board or a menu-bar app." />
+<link rel="canonical" href="https://shipboardapp.com/guides/github-actions-dashboard/" />
+<meta name="theme-color" content="#0a0e13" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="ShipBoard" />
+<meta property="og:title" content="A GitHub Actions dashboard for all your repos" />
+<meta property="og:description" content="GitHub shows workflow runs one repo at a time. Four ways to see every repo at once: gh run list, Actions metrics, a self-hosted board or a menu-bar app." />
+<meta property="og:url" content="https://shipboardapp.com/guides/github-actions-dashboard/" />
+<meta property="og:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta property="og:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="A GitHub Actions dashboard for all your repos" />
+<meta name="twitter:description" content="GitHub shows workflow runs one repo at a time. Four ways to see every repo at once: gh run list, Actions metrics, a self-hosted board or a menu-bar app." />
+<meta name="twitter:image" content="https://shipboardapp.com/og-image.jpg" />
+<meta name="twitter:image:alt" content="ShipBoard showing CI/CD pipeline status in the macOS menu bar" />
+
+<!-- Google tag (gtag.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GQFLDGN7BC');
+  // Load gtag.js after the page has rendered so it doesn't compete with first paint.
+  // Events sent before then wait in dataLayer and are delivered once it loads.
+  addEventListener('load', function () {
+    setTimeout(function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GQFLDGN7BC';
+      document.head.appendChild(s);
+    }, 1500);
+  });
+</script>
+
+<link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ShipBoard",
+          "item": "https://shipboardapp.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guides",
+          "item": "https://shipboardapp.com/guides/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "A GitHub Actions dashboard for all your repos",
+          "item": "https://shipboardapp.com/guides/github-actions-dashboard/"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://shipboardapp.com/guides/github-actions-dashboard/#article",
+      "headline": "A GitHub Actions dashboard for all your repos",
+      "description": "GitHub shows workflow runs one repo at a time. Four ways to see every repo at once: gh run list, Actions metrics, a self-hosted board or a menu-bar app.",
+      "datePublished": "2026-09-27",
+      "dateModified": "2026-09-27",
+      "image": "https://shipboardapp.com/og-image.jpg",
+      "author": {
+        "@id": "https://shipboardapp.com/#keenan"
+      },
+      "publisher": {
+        "@id": "https://shipboardapp.com/#organization"
+      },
+      "mainEntityOfPage": "https://shipboardapp.com/guides/github-actions-dashboard/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shipboardapp.com/#keenan",
+      "name": "Keenan Kaufman",
+      "url": "https://shipboardapp.com/#maker",
+      "sameAs": [
+        "https://github.com/keenanlk"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://shipboardapp.com/#organization",
+      "name": "ShipBoard",
+      "url": "https://shipboardapp.com/",
+      "logo": "https://shipboardapp.com/assets/img/logo-512.png"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ferry" viewBox="0 0 24 24"><path fill="currentColor" d="M22 21a3.5 3.5 0 0 1-3-1.6 3.5 3.5 0 0 1-6 0 3.5 3.5 0 0 1-6 0A3.5 3.5 0 0 1 4 21H2v-2h2a1.5 1.5 0 0 0 1.3-.8L4 13V8h3V5h4V2h2v3h4v3h3v5l-1.3 5.2A1.5 1.5 0 0 0 20 19h2v2h-2-2zM6 9v3.5l6 1.8 6-1.8V9H6z"/></symbol>
+</svg>
+
+<header class="site-nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="/"><svg class="ferry" width="24" height="24"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#providers">Providers</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a class="btn btn-primary" href="/download.html">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">ShipBoard</a> <span>/</span> <a href="/guides/">Guides</a> <span>/</span> A GitHub Actions dashboard for all your repos</nav>
+  <div class="page-head">
+    <div class="eyebrow">Guide · GitHub Actions</div>
+    <h1>A GitHub Actions dashboard for all your repos</h1>
+    <p class="lede">GitHub shows workflow runs one repository at a time. If you ship from several repos, there’s no built-in page that tells you whether everything is green. Here are four ways to get that view, from a shell loop to a board on the wall.</p>
+    <p class="meta">By <a href="/#maker">Keenan Kaufman</a> · September 27, 2026</p>
+  </div>
+
+  <section>
+    <h2>The short version</h2>
+    <ul class="ticks">
+      <li><b>Quick check from the terminal:</b> loop <code>gh run list</code> over your repos.</li>
+      <li><b>Trends across an organization:</b> Actions Performance Metrics under the organization’s <b>Insights</b> tab.</li>
+      <li><b>A shared screen for the team:</b> a self-hosted board such as GitactionBoard.</li>
+      <li><b>Your own live view with alerts:</b> a menu-bar app such as ShipBoard.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Why GitHub doesn’t give you this</h2>
+    <p>The <b>Actions</b> tab lives inside each repository and lists only that repository’s runs. Your GitHub home feed doesn’t show workflow runs, and GitHub’s Actions notifications only cover runs you triggered yourself, so a teammate’s broken push to <code>main</code> in another repo can go unnoticed (more on that in <a href="/guides/github-actions-failure-notifications-mac/">Mac alerts for failed GitHub Actions workflows</a>).</p>
+  </section>
+
+  <section>
+    <h2>Option 1: loop the GitHub CLI over your repos</h2>
+    <p><code>gh run list</code> shows recent runs for one repository, and <code>-R</code> picks which one. A short loop gives you a text dashboard:</p>
+    <pre><code>for repo in acme/api acme/web acme/infra; do
+  echo "== $repo"
+  gh run list -R "$repo" --branch main --limit 3
+done</code></pre>
+    <p>Add <code>--status failure</code> to list only failed runs, or <code>--workflow deploy.yml</code> to follow one workflow. For scripting, <code>--json workflowName,status,conclusion,url</code> returns fields you can pipe into <code>jq</code>.</p>
+    <p>This is free and needs nothing new, but it’s a snapshot. You have to run it, and it won’t tell you when something breaks.</p>
+  </section>
+
+  <section>
+    <h2>Option 2: Actions Performance Metrics for an organization</h2>
+    <p>In an organization, open <b>Insights</b> and choose <b>Actions Performance Metrics</b>. It shows average run time, queue time and failure rate per workflow, job and repository, over a period you pick. <b>Actions Usage Metrics</b> next to it shows minutes used. Organization owners, and people given the “View organization Actions metrics” permission, can see them.</p>
+    <p>This is the right tool for finding the flaky workflow or the repo that burns the most minutes. It’s built for trends, though, not for the state of the run that finished a minute ago.</p>
+  </section>
+
+  <section>
+    <h2>Option 3: a self-hosted board for the team</h2>
+    <p><a href="https://github.com/otto-de/gitactionboard">GitactionBoard</a>, an open-source project from otto, runs as a Docker container and shows workflow status across many public and private repositories in one web page. It can hide healthy builds, send failure alerts to Microsoft Teams, and publish a CCTray feed that build monitors such as CCMenu can read.</p>
+    <p>It suits a TV on the office wall or a shared URL. You host it, give it a token, and keep it running.</p>
+  </section>
+
+  <section>
+    <h2>Option 4: a menu-bar app on your Mac</h2>
+    <p>If the dashboard is for you rather than a team, a menu-bar app avoids running a server. <a href="/github-actions/">ShipBoard</a> watches the workflows you tick across any of your repositories and shows each one as a green, amber or red row, with jobs and steps underneath. A run that fails raises a native macOS notification, whoever started it.</p>
+    <ol class="steps">
+      <li><a href="https://github.com/settings/personal-access-tokens/new">Create a fine-grained token</a>, choose the repositories, and set <b>Actions</b> and <b>Metadata</b> to <b>Read-only</b>.</li>
+      <li><a href="/download.html">Install ShipBoard</a>, click <b>+</b>, choose <b>GitHub</b> and paste the token.</li>
+      <li>Search your repositories and tick the workflows you want on the board.</li>
+    </ol>
+    <p>Know the limits before you pick it. ShipBoard follows each workflow’s default branch, works with github.com only, and its repository picker lists your 100 most recently pushed repositories. It’s free, runs only on your Mac, and can put GitLab CI, AWS CodePipeline, Vercel and Netlify on the same board.</p>
+  </section>
+
+  <section>
+    <h2>Which should you use?</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Option</th><th>Live status</th><th>Failure alerts</th><th>Setup</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><code>gh run list</code> loop</th><td>When you run it</td><td>No</td><td>None</td></tr>
+        <tr><th scope="row">Actions Performance Metrics</th><td>No, trends over a period</td><td>No</td><td>None, organizations only</td></tr>
+        <tr><th scope="row">GitactionBoard</th><td>Yes, in a browser</td><td>Microsoft Teams</td><td>Host a Docker container</td></tr>
+        <tr><th scope="row">ShipBoard</th><td>Yes, in the menu bar</td><td>macOS notifications</td><td>Install an app, paste a token</td></tr>
+      </tbody>
+    </table></div>
+    <p>Comparing menu-bar apps specifically? See <a href="/compare/">ShipBoard vs CCMenu, CatLight and others</a>.</p>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <ul class="ticks">
+      <li><a href="https://cli.github.com/manual/gh_run_list">GitHub CLI manual: gh run list</a></li>
+      <li><a href="https://docs.github.com/en/actions/concepts/metrics">GitHub Docs: about GitHub Actions metrics</a></li>
+      <li><a href="https://docs.github.com/en/actions/how-tos/administer/view-metrics">GitHub Docs: viewing GitHub Actions metrics</a></li>
+      <li><a href="https://github.com/otto-de/gitactionboard">GitactionBoard on GitHub</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="brand" href="/" style="font-size:17px"><svg class="ferry" width="20" height="20"><use href="#i-ferry"/></svg> ShipBoard</a>
+    <div class="foot-links">
+      <a href="/codepipeline/">AWS CodePipeline</a>
+      <a href="/github-actions/">GitHub Actions</a>
+      <a href="/gitlab-ci/">GitLab CI</a>
+      <a href="/vercel/">Vercel</a>
+      <a href="/netlify/">Netlify</a>
+      <a href="/compare/">Compare</a>
+      <a href="/guides/">Guides</a>
+      <a href="/download.html">Download</a>
+      <a href="https://github.com/keenanlk/shipboard">GitHub</a>
+      <a href="https://github.com/keenanlk/shipboard/issues">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+    <div class="foot-meta">macOS 14+ · Free · © <span id="yr">2026</span> Keenan Kaufman</div>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
